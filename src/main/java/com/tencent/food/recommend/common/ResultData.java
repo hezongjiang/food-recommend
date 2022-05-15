@@ -3,6 +3,9 @@ package com.tencent.food.recommend.common;
 import com.tencent.food.recommend.common.enums.ReturnCode;
 import lombok.Data;
 
+/**
+ * 统一返回值
+ */
 @Data
 public class ResultData<T> {
 
