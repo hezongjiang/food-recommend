@@ -1,10 +1,7 @@
 package com.tencent.food.recommend.controller;
 
 import com.tencent.food.recommend.common.ResultData;
-import com.tencent.food.recommend.persist.dao.PersonMapper;
-import com.tencent.food.recommend.persist.model.Person;
 import com.tencent.food.recommend.response.FoodRecommendResponse;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -15,9 +12,6 @@ import java.util.Arrays;
  */
 @RestController
 public class RecommendController {
-
-    @Autowired
-    private PersonMapper personMapper;
 
     @GetMapping()
     public ResultData<FoodRecommendResponse> test() {
