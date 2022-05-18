@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class WechatController {
 
     @PostMapping("/wx/login")
-    public ResultData<User> userLogin(@RequestParam(value = "code", required = false) String code,
+    public ResultData<User> userLogin(@RequestParam(value = "code") String code,
                                       @RequestParam(value = "rawData", required = false) String rawData) {
         // 用户非敏感信息：rawData
         // 签名：signature
