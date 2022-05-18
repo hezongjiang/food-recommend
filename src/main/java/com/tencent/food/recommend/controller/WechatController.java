@@ -31,13 +31,15 @@ public class WechatController {
         // 5.根据返回的User实体类，判断用户是否是新用户，是的话，将用户信息存到数据库；
         User user = null;
         if (user == null) {
-            // 用户信息入库
-            String nickName = rawDataJson.getString("nickName");
-            String avatarUrl = rawDataJson.getString("avatarUrl");
             user = new User();
+            // 用户信息入库
+            if (rawDataJson != null) {
+                String nickName = rawDataJson.getString("nickName");
+                String avatarUrl = rawDataJson.getString("avatarUrl");
+                user.setAvatar(avatarUrl);
+                user.setNickName(nickName);
+            }
             user.setOpenId(openid);
-            user.setAvatar(avatarUrl);
-            user.setNickName(nickName);
         }
         return ResultData.success(user);
     }
