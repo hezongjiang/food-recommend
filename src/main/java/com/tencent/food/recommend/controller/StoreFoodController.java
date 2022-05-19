@@ -151,7 +151,7 @@ public class StoreFoodController {
     }
 
     /**
-     *用户查看个人囤菜，目前不能筛选 筛选后期拓展
+     *用户查看个人囤菜，目前不能筛选 筛选后期拓展 暂不支持分页
      * @param openId
      * @param foodId
      * @param foodName

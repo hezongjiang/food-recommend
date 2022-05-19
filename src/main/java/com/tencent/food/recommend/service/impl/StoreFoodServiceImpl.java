@@ -83,8 +83,11 @@ public class StoreFoodServiceImpl implements StoreFoodService {
             foodList=foodMapper.selectByPersonId(openId);
             foodResponse.setList(foodList);
             foodResponse.setTotal(foodList.size());
-            foodResponse.setPages((int) Math.ceil(foodList.size()/pageSize));
-
+            try{
+                foodResponse.setPages((int) Math.ceil(foodList.size()/pageSize));
+            }catch (Exception e){
+//                不需要分页
+            }
             return foodResponse;
         }catch (Exception e){
             return null;
