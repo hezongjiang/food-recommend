@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="com.tencent.food.recommend.persist.model.Food">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="food_name" jdbcType="VARCHAR" property="foodName" />
-    <result column="food_id" jdbcType="BIGINT" property="foodId" />
+    <result column="food_id" jdbcType="VARCHAR" property="foodId" />
     <result column="quantity" jdbcType="INTEGER" property="quantity" />
     <result column="weight" jdbcType="INTEGER" property="weight" />
     <result column="create_date" jdbcType="BIGINT" property="createDate" />
@@ -19,18 +19,6 @@
     from food
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <select id="selectByPersonId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-<!--    select-->
-<!--    <include refid="Base_Column_List" />-->
-<!--    from food-->
-<!--    where id = #{id,jdbcType=INTEGER}-->
-
-    SELECT * FROM food WHERE
-    food_id in(
-    SELECT food_id
-    FROM person_food
-    WHERE person_id= #{id,jdbcType=INTEGER})
-  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from food
     where id = #{id,jdbcType=INTEGER}
@@ -39,7 +27,7 @@
     insert into food (id, food_name, food_id, 
       quantity, weight, create_date, 
       remind_date)
-    values (#{id,jdbcType=INTEGER}, #{foodName,jdbcType=VARCHAR}, #{foodId,jdbcType=BIGINT}, 
+    values (#{id,jdbcType=INTEGER}, #{foodName,jdbcType=VARCHAR}, #{foodId,jdbcType=VARCHAR}, 
       #{quantity,jdbcType=INTEGER}, #{weight,jdbcType=INTEGER}, #{createDate,jdbcType=BIGINT}, 
       #{remindDate,jdbcType=BIGINT})
   </insert>
@@ -76,7 +64,7 @@
         #{foodName,jdbcType=VARCHAR},
       </if>
       <if test="foodId != null">
-        #{foodId,jdbcType=BIGINT},
+        #{foodId,jdbcType=VARCHAR},
       </if>
       <if test="quantity != null">
         #{quantity,jdbcType=INTEGER},
@@ -99,7 +87,7 @@
         food_name = #{foodName,jdbcType=VARCHAR},
       </if>
       <if test="foodId != null">
-        food_id = #{foodId,jdbcType=BIGINT},
+        food_id = #{foodId,jdbcType=VARCHAR},
       </if>
       <if test="quantity != null">
         quantity = #{quantity,jdbcType=INTEGER},
@@ -119,13 +107,25 @@
   <update id="updateByPrimaryKey" parameterType="com.tencent.food.recommend.persist.model.Food">
     update food
     set food_name = #{foodName,jdbcType=VARCHAR},
-      food_id = #{foodId,jdbcType=BIGINT},
+      food_id = #{foodId,jdbcType=VARCHAR},
       quantity = #{quantity,jdbcType=INTEGER},
       weight = #{weight,jdbcType=INTEGER},
       create_date = #{createDate,jdbcType=BIGINT},
       remind_date = #{remindDate,jdbcType=BIGINT}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <select id="selectByPersonId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+<!--    select-->
+<!--    &lt;include refid="Base_Column_List" /&gt;-->
+<!--    from food-->
+<!--    where id = #{id,jdbcType=INTEGER}-->
+
+    SELECT * FROM food WHERE
+    food_id in(
+    SELECT food_id
+    FROM person_food
+    WHERE open_id= #{id,jdbcType=INTEGER})
+  </select>
   <update id="updateByFoodId" parameterType="com.tencent.food.recommend.persist.model.Food">
     update food
     <set>

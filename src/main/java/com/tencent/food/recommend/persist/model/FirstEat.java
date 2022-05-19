@@ -3,7 +3,7 @@ package com.tencent.food.recommend.persist.model;
 public class FirstEat {
     private Integer id;
 
-    private Integer foodId;
+    private String foodId;
 
     private String foodName;
 
@@ -23,12 +23,12 @@ public class FirstEat {
         this.id = id;
     }
 
-    public Integer getFoodId() {
+    public String getFoodId() {
         return foodId;
     }
 
-    public void setFoodId(Integer foodId) {
-        this.foodId = foodId;
+    public void setFoodId(String foodId) {
+        this.foodId = foodId == null ? null : foodId.trim();
     }
 
     public String getFoodName() {

@@ -3,7 +3,7 @@
 <mapper namespace="com.tencent.food.recommend.persist.dao.FirstEatMapper">
   <resultMap id="BaseResultMap" type="com.tencent.food.recommend.persist.model.FirstEat">
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="food_id" jdbcType="INTEGER" property="foodId" />
+    <result column="food_id" jdbcType="VARCHAR" property="foodId" />
     <result column="food_name" jdbcType="VARCHAR" property="foodName" />
     <result column="quantity" jdbcType="INTEGER" property="quantity" />
     <result column="weight" jdbcType="INTEGER" property="weight" />
@@ -27,7 +27,7 @@
     insert into first_eat (id, food_id, food_name, 
       quantity, weight, create_date, 
       remind_date)
-    values (#{id,jdbcType=INTEGER}, #{foodId,jdbcType=INTEGER}, #{foodName,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=INTEGER}, #{foodId,jdbcType=VARCHAR}, #{foodName,jdbcType=VARCHAR}, 
       #{quantity,jdbcType=INTEGER}, #{weight,jdbcType=INTEGER}, #{createDate,jdbcType=BIGINT}, 
       #{remindDate,jdbcType=BIGINT})
   </insert>
@@ -61,7 +61,7 @@
         #{id,jdbcType=INTEGER},
       </if>
       <if test="foodId != null">
-        #{foodId,jdbcType=INTEGER},
+        #{foodId,jdbcType=VARCHAR},
       </if>
       <if test="foodName != null">
         #{foodName,jdbcType=VARCHAR},
@@ -84,7 +84,7 @@
     update first_eat
     <set>
       <if test="foodId != null">
-        food_id = #{foodId,jdbcType=INTEGER},
+        food_id = #{foodId,jdbcType=VARCHAR},
       </if>
       <if test="foodName != null">
         food_name = #{foodName,jdbcType=VARCHAR},
@@ -106,7 +106,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.tencent.food.recommend.persist.model.FirstEat">
     update first_eat
-    set food_id = #{foodId,jdbcType=INTEGER},
+    set food_id = #{foodId,jdbcType=VARCHAR},
       food_name = #{foodName,jdbcType=VARCHAR},
       quantity = #{quantity,jdbcType=INTEGER},
       weight = #{weight,jdbcType=INTEGER},

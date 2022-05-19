@@ -41,11 +41,11 @@ public class StoreFoodController {
             @RequestParam(value = "remindDate", required = false) long remindDate
     ){
 //        先验证身份,获取User
-        Integer personId = 0;
+        String personId = "";
 //        再调用service处理
         Food food=new Food();
 //        需调用函数实现有意义的foodId
-        food.setFoodId(Long.valueOf(IdGenerate.generate("int")));
+        food.setFoodId(IdGenerate.generate("FOOD_ID"));
         food.setFoodName(foodName);
         food.setCreateDate(createDate);
         food.setRemindDate(remindDate);
@@ -103,7 +103,7 @@ public class StoreFoodController {
     @PutMapping("/api/storeFood/update")
     public ResultData<FoodResponse> updateFood(
 //            @CookieValue(name = "Cookie", required = true) String authorization,
-            @RequestParam(value = "foodId", required = true) Long foodId,
+            @RequestParam(value = "foodId", required = true) String foodId,
             @RequestParam(value = "foodName", required = true) String foodName,
             @RequestParam(value = "quantity", required = false) Integer quantity,
             @RequestParam(value = "weight", required = false) Integer weight,
@@ -145,7 +145,7 @@ public class StoreFoodController {
     @GetMapping ("/api/storeFood")
     public ResultData<FoodResponse> checkFood(
 //            @CookieValue(name = "Cookie", required = true) String authorization,
-            @RequestParam(value = "foodId", required = false) Long foodId,
+            @RequestParam(value = "foodId", required = false) String foodId,
             @RequestParam(value = "foodName", required = false) String foodName,
             @RequestParam(value = "createDate", required = false) long createDate,
             @RequestParam(value = "remindDate", required = false) long remindDate,

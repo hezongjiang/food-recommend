@@ -22,14 +22,13 @@ public class StoreFoodServiceImpl implements StoreFoodService {
     PersonFoodMapper personFoodMapper;
 
     @Override
-    public int InsertFood(Integer personId, Food food) {
+    public int InsertFood(String personId, Food food) {
         try {
 //            先插入food表
             foodMapper.insert(food);
 //             再插入person_food表
             PersonFood personFood=new PersonFood();
-            personFood.setFoodId(Long.valueOf(food.getId()));
-            personFood.setPersonId(personId);
+            personFood.setOpenId(personId);
             personFoodMapper.insert(personFood);
 //          成功返回1
             return 1;
