@@ -1,14 +1,12 @@
-package com.tencent.food.recommend.service.Impl;
+package com.tencent.food.recommend.service.impl;
 
 import com.tencent.food.recommend.persist.dao.FoodMapper;
 import com.tencent.food.recommend.persist.dao.PersonFoodMapper;
 import com.tencent.food.recommend.persist.dao.PersonMapper;
 import com.tencent.food.recommend.persist.model.Food;
 import com.tencent.food.recommend.persist.model.Person;
-import com.tencent.food.recommend.persist.model.PersonFood;
 import com.tencent.food.recommend.response.FoodResponse;
 import com.tencent.food.recommend.service.FirstEatService;
-import com.tencent.food.recommend.service.StoreFoodService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
