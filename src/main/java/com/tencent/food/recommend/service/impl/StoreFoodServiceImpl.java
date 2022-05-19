@@ -67,7 +67,7 @@ public class StoreFoodServiceImpl implements StoreFoodService {
     public int updateByFoodId(Food food) {
 //        仅需要改food表
         try {
-            foodMapper.updateByPrimaryKeySelective(food);
+            foodMapper.updateByFoodId(food);
             return 1;
         }catch (Exception e){
             return 0;

@@ -100,6 +100,7 @@ public class StoreFoodController {
     }
 
     /**
+     * 已测试
      *用户修改囤菜信息 根据foodid确定
      * @param openId
      * @param foodId
@@ -151,6 +152,7 @@ public class StoreFoodController {
     }
 
     /**
+     * 已测试
      *用户查看个人囤菜，目前不能筛选 筛选后期拓展 暂不支持分页
      * @param openId
      * @param foodId
