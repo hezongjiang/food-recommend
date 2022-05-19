@@ -13,7 +13,7 @@ public interface StoreRemindService {
      * @param storeRemind
      * @return
      */
-    int add (StoreRemind storeRemind);
+    int add (String openId,StoreRemind storeRemind);
 
     /**
      * 查询所有提醒信息，封装成 StoreRemindResponse 对象
