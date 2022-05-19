@@ -4,9 +4,10 @@
   <resultMap id="BaseResultMap" type="com.tencent.food.recommend.persist.model.Person">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="open_id" jdbcType="VARCHAR" property="openId" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, name
+    id, name, open_id
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -19,8 +20,10 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.tencent.food.recommend.persist.model.Person">
-    insert into person (id, name)
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR})
+    insert into person (id, name, open_id
+      )
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{openId,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.tencent.food.recommend.persist.model.Person">
     insert into person
@@ -31,6 +34,9 @@
       <if test="name != null">
         name,
       </if>
+      <if test="openId != null">
+        open_id,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -38,6 +44,9 @@
       </if>
       <if test="name != null">
         #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="openId != null">
+        #{openId,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -47,15 +56,19 @@
       <if test="name != null">
         name = #{name,jdbcType=VARCHAR},
       </if>
+      <if test="openId != null">
+        open_id = #{openId,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.tencent.food.recommend.persist.model.Person">
     update person
-    set name = #{name,jdbcType=VARCHAR}
+    set name = #{name,jdbcType=VARCHAR},
+      open_id = #{openId,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <select id="getById" resultType="com.tencent.food.recommend.persist.model.Person">
-    select * from person where id = #{id}
+  <select id="selectByOpenId" resultType="com.tencent.food.recommend.persist.model.Person">
+    select * from person where open_id = #{openId}
   </select>
 </mapper>

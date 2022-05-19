@@ -3,9 +3,9 @@ package com.tencent.food.recommend.persist.model;
 public class PersonFood {
     private Integer id;
 
-    private Integer personId;
+    private String openId;
 
-    private Long foodId;
+    private String foodId;
 
     public Integer getId() {
         return id;
@@ -15,19 +15,19 @@ public class PersonFood {
         this.id = id;
     }
 
-    public Integer getPersonId() {
-        return personId;
+    public String getOpenId() {
+        return openId;
     }
 
-    public void setPersonId(Integer personId) {
-        this.personId = personId;
+    public void setOpenId(String openId) {
+        this.openId = openId == null ? null : openId.trim();
     }
 
-    public Long getFoodId() {
+    public String getFoodId() {
         return foodId;
     }
 
-    public void setFoodId(Long foodId) {
-        this.foodId = foodId;
+    public void setFoodId(String foodId) {
+        this.foodId = foodId == null ? null : foodId.trim();
     }
 }

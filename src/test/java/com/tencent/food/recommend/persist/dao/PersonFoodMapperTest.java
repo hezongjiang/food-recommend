@@ -7,8 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 /**
  * @Author: gyt
  * @Date: 2022/5/19 11:10
@@ -23,8 +21,8 @@ class PersonFoodMapperTest {
     @Test
     void inset(){
         PersonFood personFood=new PersonFood();
-        personFood.setPersonId(0);
-        personFood.setFoodId(0L);
+        personFood.setOpenId("0");
+        personFood.setFoodId("0L");
         personFoodMapper.insert(personFood);
     }
     @Test

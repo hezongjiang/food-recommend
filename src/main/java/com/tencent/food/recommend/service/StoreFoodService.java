@@ -10,7 +10,7 @@ import com.tencent.food.recommend.response.FoodResponse;
  */
 public interface StoreFoodService {
     public int InsertFood(
-            Integer personId,
+            String personId,
             Food food);
 
     public int deleteByFoodId(Integer personId,Long foodId);

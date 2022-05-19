@@ -9,8 +9,6 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 /**
  * @Author: gyt
  * @Date: 2022/5/18 19:36
@@ -78,7 +76,7 @@ class FoodMapperTest {
     void testUpdateByFoodId() {
         Food food=new Food();
         food.setFoodName("大蒜");
-        food.setFoodId("3L");
+        food.setFoodId("1L");
         food.setQuantity(4);
         int status=foodMapper.updateByFoodId(food);
         System.out.println("状态:"+status);

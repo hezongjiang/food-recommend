@@ -36,7 +36,7 @@ public class Food {
     }
 
     public void setFoodId(String foodId) {
-        this.foodId = foodId;
+        this.foodId = foodId == null ? null : foodId.trim();
     }
 
     public Integer getQuantity() {

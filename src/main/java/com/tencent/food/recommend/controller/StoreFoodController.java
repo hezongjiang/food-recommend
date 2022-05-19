@@ -1,6 +1,7 @@
 package com.tencent.food.recommend.controller;
 
 import com.tencent.food.recommend.common.ResultData;
+import com.tencent.food.recommend.common.consts.WXConstant;
 import com.tencent.food.recommend.common.enums.ReturnCode;
 import com.tencent.food.recommend.common.utils.IdGenerate;
 import com.tencent.food.recommend.persist.model.Food;
@@ -41,11 +42,11 @@ public class StoreFoodController {
             @RequestParam(value = "remindDate", required = false) long remindDate
     ){
 //        先验证身份,获取User
-        Integer personId = 0;
+        String personId = "";
 //        再调用service处理
         Food food=new Food();
 //        需调用函数实现有意义的foodId
-        food.setFoodId(IdGenerate.generate("int"));
+        food.setFoodId(IdGenerate.generate("FOOD_ID"));
         food.setFoodName(foodName);
         food.setCreateDate(createDate);
         food.setRemindDate(remindDate);
@@ -144,13 +145,13 @@ public class StoreFoodController {
      */
     @GetMapping ("/api/storeFood")
     public ResultData<FoodResponse> checkFood(
-//            @CookieValue(name = "Cookie", required = true) String authorization,
+            @CookieValue(name = WXConstant.OPEN_ID, required = true) String openId,
             @RequestParam(value = "foodId", required = false) String foodId,
             @RequestParam(value = "foodName", required = false) String foodName,
             @RequestParam(value = "createDate", required = false) long createDate,
             @RequestParam(value = "remindDate", required = false) long remindDate,
-            @RequestParam(value = "page", required = false) Integer page,
-            @RequestParam(value = "pageSize", required = false) Integer pageSize
+            @RequestParam(value = "page") Integer page,
+            @RequestParam(value = "pageSize") Integer pageSize
     ){
 //        先验证身份,获取User
         Integer personId = 1;

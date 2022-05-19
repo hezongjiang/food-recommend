@@ -1,11 +1,11 @@
 package com.tencent.food.recommend.persist.model;
 
-public class Person {
+public class PersonStoreRemind {
     private Integer id;
 
-    private String name;
-
     private String openId;
+
+    private Integer storeRemindId;
 
     public Integer getId() {
         return id;
@@ -15,19 +15,19 @@ public class Person {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name == null ? null : name.trim();
-    }
-
     public String getOpenId() {
         return openId;
     }
 
     public void setOpenId(String openId) {
         this.openId = openId == null ? null : openId.trim();
+    }
+
+    public Integer getStoreRemindId() {
+        return storeRemindId;
+    }
+
+    public void setStoreRemindId(Integer storeRemindId) {
+        this.storeRemindId = storeRemindId;
     }
 }

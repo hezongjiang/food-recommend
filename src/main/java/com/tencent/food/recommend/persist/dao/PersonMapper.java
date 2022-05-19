@@ -16,4 +16,6 @@ public interface PersonMapper {
     int updateByPrimaryKeySelective(Person record);
 
     int updateByPrimaryKey(Person record);
+
+    Person selectByOpenId(String openId);
 }
