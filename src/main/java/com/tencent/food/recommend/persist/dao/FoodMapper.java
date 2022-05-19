@@ -22,6 +22,11 @@ public interface FoodMapper {
 
     List<Food> selectByPersonId(String id);
 
+//    按记录时间筛选
+    List<Food> selectByPersonIdAndDateScope(String id,Long startDate,Long finishDate);
+//模糊查找
+    List<Food> selectByPersonIdAndFoodName(String id,String foodName);
+
     int updateByPrimaryKeySelective(Food record);
 
     int updateByPrimaryKey(Food record);

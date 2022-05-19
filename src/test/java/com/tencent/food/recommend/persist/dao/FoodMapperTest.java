@@ -92,4 +92,23 @@ class FoodMapperTest {
         }
 
     }
+
+    @Test
+    void selectByPersonIdAndFoodName() {
+        String foodName="瓜";
+        String openId="123";
+        List<Food> foodList=foodMapper.selectByPersonIdAndFoodName(openId,foodName);
+        for (Food food:foodList) {
+            System.out.println(food);
+        }
+    }
+
+    @Test
+    void selectByPersonIdAndDateScope(){
+        String openId="123";
+        List<Food> foodList=foodMapper.selectByPersonIdAndDateScope(openId,System.currentTimeMillis()-10000000,System.currentTimeMillis());
+        for (Food food:foodList) {
+            System.out.println(food);
+        }
+    }
 }
