@@ -10,14 +10,14 @@ import com.tencent.food.recommend.response.FoodResponse;
  */
 public interface StoreFoodService {
     public int InsertFood(
-            String personId,
+            String openId,
             Food food);
 
-    public int deleteByFoodId(Integer personId,Long foodId);
+    public int deleteByFoodId(String openId,String foodId);
 
     public int updateByFoodId(Food food);
 
-    public FoodResponse selectByPersonId(Integer personId,
+    public FoodResponse selectByPersonId(String openId,
                                          Food food,
                                          Integer page,
                                          Integer pageSize,

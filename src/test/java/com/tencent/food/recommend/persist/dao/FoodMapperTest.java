@@ -64,7 +64,7 @@ class FoodMapperTest {
 
     @Test
     void testDeleteByFoodId() {
-        Long foodId=0L;
+        String foodId="0L";
         int status=foodMapper.deleteByFoodId(foodId);
         System.out.println("状态:"+status);
     }
@@ -84,7 +84,7 @@ class FoodMapperTest {
 
     @Test
     void testSelectByPersonId(){
-        Integer openId=0;
+        String openId="0";
         List<Food> foodList=foodMapper.selectByPersonId(openId);
         for (Food food:foodList) {
             System.out.println(food);

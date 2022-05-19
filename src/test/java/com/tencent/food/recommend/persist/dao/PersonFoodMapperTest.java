@@ -27,8 +27,8 @@ class PersonFoodMapperTest {
     }
     @Test
     void deleteByPersonIdAndFoodId() {
-        Integer personId=0;
-        Long foodId=0L;
+        String personId="0";
+        String foodId="0L";
         personFoodMapper.deleteByPersonIdAndFoodId(personId,foodId);
     }
 

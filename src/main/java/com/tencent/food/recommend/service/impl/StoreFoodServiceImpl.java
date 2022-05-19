@@ -9,6 +9,9 @@ import com.tencent.food.recommend.service.StoreFoodService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.LinkedList;
+import java.util.List;
+
 /**
  * @Author: gyt
  * @Date: 2022/5/18 16:30
@@ -22,13 +25,13 @@ public class StoreFoodServiceImpl implements StoreFoodService {
     PersonFoodMapper personFoodMapper;
 
     @Override
-    public int InsertFood(String personId, Food food) {
+    public int InsertFood(String openId, Food food) {
         try {
 //            先插入food表
             foodMapper.insert(food);
 //             再插入person_food表
             PersonFood personFood=new PersonFood();
-            personFood.setOpenId(personId);
+            personFood.setOpenId(openId);
             personFoodMapper.insert(personFood);
 //          成功返回1
             return 1;
@@ -39,10 +42,10 @@ public class StoreFoodServiceImpl implements StoreFoodService {
     }
 
     @Override
-    public int deleteByFoodId(Integer personId,Long foodId) {
+    public int deleteByFoodId(String openId,String foodId) {
         try {
 //            先删除Person_Food
-            personFoodMapper.deleteByPersonIdAndFoodId(personId, foodId);
+            personFoodMapper.deleteByPersonIdAndFoodId(openId, foodId);
 //            再删除Food表
             foodMapper.deleteByFoodId(foodId);
             return 1;
@@ -64,22 +67,14 @@ public class StoreFoodServiceImpl implements StoreFoodService {
 
 
     @Override
-    public FoodResponse selectByPersonId(Integer personId, Food food,
+    public FoodResponse selectByPersonId(String openId, Food food,
                                   Integer page, Integer pageSize, FoodResponse foodResponse) {
         try {
-//先从person_food找
-//            PersonFoodExample personFoodExample=new PersonFoodExample();
-//            List<PersonFood> personFoodList=personFoodMapper.selectByExample(personFoodExample);
-////            再从food找
-//            FoodExample foodExample=new FoodExample();
-//            FoodExample.Criteria criteria = foodExample.createCriteria();
-//            增加查询条件
-//            criteria.a
-//            List<Food> foodList=foodMapper.selectByExample(foodExample);
-
-//            foodResponse.setList(foodList);
-//            foodResponse.setTotal(foodList.size());
-//            foodResponse.setPages((int) Math.ceil(foodList.size()/pageSize));
+            List<Food> foodList=new LinkedList<>();
+            foodList=foodMapper.selectByPersonId(openId);
+            foodResponse.setList(foodList);
+            foodResponse.setTotal(foodList.size());
+            foodResponse.setPages((int) Math.ceil(foodList.size()/pageSize));
 
             return foodResponse;
         }catch (Exception e){

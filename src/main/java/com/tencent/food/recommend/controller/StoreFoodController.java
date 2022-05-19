@@ -73,14 +73,14 @@ public class StoreFoodController {
     @DeleteMapping("/api/storeFood/delete")
     public ResultData<FoodResponse> deleteFood(
 //            @CookieValue(name = "Cookie", required = true) String authorization,
-            @RequestParam(value = "foodId",required = true) Long foodId
+            @RequestParam(value = "foodId",required = true) String foodId
     ){
 //        先验证身份,获取person,必须有id;food必须有id
         Person person = new Person();
         person.setId(0);
 //        再调用service处理
         FoodResponse foodResponse=new FoodResponse();
-        int status = storeFoodService.deleteByFoodId(person.getId(),foodId);
+        int status = storeFoodService.deleteByFoodId(person.getOpenId(),foodId);
 //        鉴定处理结果并返回
 //        出错处理比较简单，需要修改
         if(status==1){
@@ -154,7 +154,7 @@ public class StoreFoodController {
             @RequestParam(value = "pageSize") Integer pageSize
     ){
 //        先验证身份,获取User
-        Integer personId = 1;
+
 //        再调用service处理
         FoodResponse foodResponse=new FoodResponse();
         foodResponse.setPage(page);
@@ -165,7 +165,7 @@ public class StoreFoodController {
         food.setFoodName(foodName);
         food.setCreateDate(createDate);
         food.setRemindDate(remindDate);
-        foodResponse = storeFoodService.selectByPersonId(personId,food,page,pageSize,foodResponse);
+        foodResponse = storeFoodService.selectByPersonId(openId,food,page,pageSize,foodResponse);
 //        鉴定处理结果并返回
         if(foodResponse!=null){
             return ResultData.success(foodResponse);

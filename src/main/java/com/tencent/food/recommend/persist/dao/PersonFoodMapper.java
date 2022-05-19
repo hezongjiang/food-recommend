@@ -13,18 +13,19 @@ public interface PersonFoodMapper {
 
     /**
      * 已通过测试
-     * @param personId
+     * @param openId
      * @param foodId
      * @return
      */
     @Delete("delete from person_food where food_id=#{foodId} and open_id=#{personId}")
-    int deleteByPersonIdAndFoodId(Integer personId,Long foodId);
+    int deleteByPersonIdAndFoodId(String openId,String foodId);
 
     int insert(PersonFood record);
 
     int insertSelective(PersonFood record);
 
-    List<Food> selectByPrimaryKey(Integer id);
+//不建议试用
+    List<Food> selectByPrimaryKey(String id);
 
     int updateByPrimaryKeySelective(PersonFood record);
 

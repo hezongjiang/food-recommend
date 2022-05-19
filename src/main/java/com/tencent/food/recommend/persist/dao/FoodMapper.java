@@ -11,15 +11,16 @@ public interface FoodMapper {
     int deleteByPrimaryKey(Integer id);
 
     @Delete("delete from food where food_id=#{id}")
-    int deleteByFoodId(Long id);
+    int deleteByFoodId(String id);
 
     int insert(Food record);
 
     int insertSelective(Food record);
 
-    Food selectByPrimaryKey(Integer id);
+//不建议用
+    Food selectByPrimaryKey(String id);
 
-    List<Food> selectByPersonId(Integer id);
+    List<Food> selectByPersonId(String id);
 
     int updateByPrimaryKeySelective(Food record);
 
