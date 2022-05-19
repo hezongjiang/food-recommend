@@ -41,7 +41,6 @@ public class StoreRemindServiceImpl implements StoreRemindService {
         StoreRemindResponse storeRemindResponse = new StoreRemindResponse();
         Long day = (storeRemind.getRemindDate()-storeRemind.getCreatedDate()) / (1000 * 60 * 60 * 24);
         storeRemindResponse.setDay(day);
-        System.out.println(day);
         storeRemindResponse.setRemark(storeRemind.getRemarks());
 
         return storeRemindResponse;

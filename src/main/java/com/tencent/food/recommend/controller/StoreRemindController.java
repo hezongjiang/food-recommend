@@ -25,7 +25,6 @@ public class StoreRemindController {
         storeRemind.setRemindDate(remindDate);
         storeRemind.setRemarks(remarks);
         int result = storeRemindService.add(storeRemind);
-        System.out.println(result);
         return ResultData.success(storeRemind);
 
     }
