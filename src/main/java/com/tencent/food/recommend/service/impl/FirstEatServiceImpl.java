@@ -7,6 +7,7 @@ import com.tencent.food.recommend.persist.model.Food;
 import com.tencent.food.recommend.persist.model.Person;
 import com.tencent.food.recommend.persist.model.PersonFood;
 import com.tencent.food.recommend.response.FoodResponse;
+import com.tencent.food.recommend.service.FirstEatService;
 import com.tencent.food.recommend.service.StoreFoodService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,35 +21,14 @@ import java.util.List;
  * @Description:
  */
 @Service
-public class StoreFoodServiceImpl implements StoreFoodService {
+public class FirstEatServiceImpl implements FirstEatService{
     @Autowired
     FoodMapper foodMapper;
     @Autowired
     PersonFoodMapper personFoodMapper;
     @Autowired
     PersonMapper personMapper;
-    @Override
-    public int InsertFood(String openId, Food food) {
-        try {
-            PersonFood personFood=new PersonFood();
-            personFood.setOpenId(openId);
-            personFood.setFoodId(food.getFoodId());
-//            先插入food表
-            foodMapper.insert(food);
-//             再插入person_food表
-            try{
-                personFoodMapper.insert(personFood);
-            }catch (Exception e){
-                //            A插入不了B先插入成功，要撤销B
-                foodMapper.deleteByFoodId(food.getFoodId());
-            }
-//          成功返回1
-            return 1;
-        }catch (Exception e){
-            return 0;
-        }
 
-    }
 
     @Override
     public int deleteByFoodId(String openId,String foodId) {
@@ -63,16 +43,6 @@ public class StoreFoodServiceImpl implements StoreFoodService {
         }
     }
 
-    @Override
-    public int updateByFoodId(Food food) {
-//        仅需要改food表
-        try {
-            foodMapper.updateByFoodId(food);
-            return 1;
-        }catch (Exception e){
-            return 0;
-        }
-    }
 
 
     @Override
@@ -95,7 +65,7 @@ public class StoreFoodServiceImpl implements StoreFoodService {
     }
 
     @Override
-    public Person Authorize(String openId){
+    public Person Authorize(String openId) {
         Person person=new Person();
 //        检验是否在数据库
         person=personMapper.selectByOpenId(openId);
@@ -106,4 +76,6 @@ public class StoreFoodServiceImpl implements StoreFoodService {
             return null;
         }
     }
+
+
 }

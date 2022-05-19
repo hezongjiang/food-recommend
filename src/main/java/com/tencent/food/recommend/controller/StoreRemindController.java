@@ -3,6 +3,7 @@ package com.tencent.food.recommend.controller;
 import com.tencent.food.recommend.common.ResultData;
 import com.tencent.food.recommend.common.consts.WXConstant;
 import com.tencent.food.recommend.common.enums.ReturnCode;
+import com.tencent.food.recommend.persist.model.Person;
 import com.tencent.food.recommend.persist.model.StoreRemind;
 import com.tencent.food.recommend.response.StoreRemindResponse;
 import com.tencent.food.recommend.service.StoreRemindService;
@@ -20,8 +21,8 @@ public class StoreRemindController {
 
     @Autowired
     StoreRemindService storeRemindService;
+
     StoreRemind storeRemind;
-    StoreRemindResponse storeRemindResponse;
 
     @PostMapping("/add")
     public ResultData addRemind (@RequestHeader(name = "openid") String openId,
@@ -48,8 +49,19 @@ public class StoreRemindController {
     }
     @GetMapping("/find")
     public ResultData findRemindByOpenId (@RequestHeader(name = WXConstant.OPEN_ID) String openId) {
-        List<StoreRemind> result = storeRemindService.findAllRemind(openId);
-        return ResultData.success(result);
+        Person person= storeRemindService.Authorize(openId);
+        if (person != null) {
+            List<StoreRemind> result = storeRemindService.findAllRemind(openId);
+            if (result != null ) {
+                return ResultData.success(result);
+            } else {
+                return ResultData.fail(ReturnCode.RC999.getCode(), "查询失败");
+            }
+        } else {
+            return ResultData.fail(ReturnCode.RC401.getCode(), "请登录重试");
+        }
+
+
     }
 
 }

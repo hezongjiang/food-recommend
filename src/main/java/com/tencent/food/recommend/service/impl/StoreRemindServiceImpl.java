@@ -1,7 +1,9 @@
 package com.tencent.food.recommend.service.Impl;
 
+import com.tencent.food.recommend.persist.dao.PersonMapper;
 import com.tencent.food.recommend.persist.dao.PersonStoreRemindMapper;
 import com.tencent.food.recommend.persist.dao.StoreRemindMapper;
+import com.tencent.food.recommend.persist.model.Person;
 import com.tencent.food.recommend.persist.model.PersonStoreRemind;
 import com.tencent.food.recommend.persist.model.StoreRemind;
 import com.tencent.food.recommend.response.StoreRemindResponse;
@@ -20,6 +22,9 @@ public class StoreRemindServiceImpl implements StoreRemindService {
     StoreRemindMapper storeRemindMapper;
     @Autowired
     PersonStoreRemindMapper personStoreRemindMapper;
+    @Autowired
+    PersonMapper personMapper;
+
     StoreRemind storeRemind;
 
     PersonStoreRemind personStoreRemind;
@@ -45,18 +50,6 @@ public class StoreRemindServiceImpl implements StoreRemindService {
         return result;
     }
 
-    @Override
-    public StoreRemindResponse findRemindById(int id) {
-        storeRemind = new StoreRemind();
-        storeRemind = storeRemindMapper.selectByPrimaryKey(id);
-        StoreRemindResponse storeRemindResponse = new StoreRemindResponse();
-        Long day = (storeRemind.getRemindDate()- System.currentTimeMillis()) / (1000 * 60 * 60 * 24);
-        storeRemindResponse.setDay(day);
-        storeRemindResponse.setRemark(storeRemind.getRemarks());
-
-        return storeRemindResponse;
-    }
-
 
     /**
      * 查询当前用户下的所有的囤货提醒
@@ -69,8 +62,18 @@ public class StoreRemindServiceImpl implements StoreRemindService {
         return remindList;
     }
 
-
-
+    @Override
+    public Person Authorize(String openId) {
+        Person person=new Person();
+//        检验是否在数据库
+        person=personMapper.selectByOpenId(openId);
+        if (person!=null){
+            person.setOpenId(openId);
+            return person;
+        }else {
+            return null;
+        }
+    }
 
 
 }
