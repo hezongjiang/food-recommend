@@ -1,4 +1,4 @@
-package com.tencent.food.recommend.service.impl;
+package com.tencent.food.recommend.service.Impl;
 
 import com.tencent.food.recommend.persist.dao.PersonStoreRemindMapper;
 import com.tencent.food.recommend.persist.dao.StoreRemindMapper;
@@ -8,6 +8,9 @@ import com.tencent.food.recommend.response.StoreRemindResponse;
 import com.tencent.food.recommend.service.StoreRemindService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.LinkedList;
+import java.util.List;
 
 
 @Service
@@ -47,12 +50,27 @@ public class StoreRemindServiceImpl implements StoreRemindService {
         storeRemind = new StoreRemind();
         storeRemind = storeRemindMapper.selectByPrimaryKey(id);
         StoreRemindResponse storeRemindResponse = new StoreRemindResponse();
-        Long day = (storeRemind.getRemindDate()-storeRemind.getCreatedDate()) / (1000 * 60 * 60 * 24);
+        Long day = (storeRemind.getRemindDate()- System.currentTimeMillis()) / (1000 * 60 * 60 * 24);
         storeRemindResponse.setDay(day);
         storeRemindResponse.setRemark(storeRemind.getRemarks());
 
         return storeRemindResponse;
     }
+
+
+    /**
+     * 查询当前用户下的所有的囤货提醒
+     * @return
+     */
+    @Override
+    public List<StoreRemind> findAllRemind(String openId) {
+        List<StoreRemind> remindList = new LinkedList<>();
+        remindList = storeRemindMapper.selectByPersonId(openId);
+        return remindList;
+    }
+
+
+
 
 
 }

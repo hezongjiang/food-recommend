@@ -11,6 +11,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/storeRemind")
 @Slf4j
@@ -45,9 +47,9 @@ public class StoreRemindController {
 
     }
     @GetMapping("/find")
-    public ResultData findRemindById (@RequestParam(value = "id") int id) {
-        storeRemindResponse = storeRemindService.findRemindById(id);
-        return ResultData.success(storeRemindResponse);
+    public ResultData findRemindByOpenId (@RequestHeader(name = WXConstant.OPEN_ID) String openId) {
+        List<StoreRemind> result = storeRemindService.findAllRemind(openId);
+        return ResultData.success(result);
     }
 
 }

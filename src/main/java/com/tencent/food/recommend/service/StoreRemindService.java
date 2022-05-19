@@ -2,6 +2,9 @@ package com.tencent.food.recommend.service;
 
 import com.tencent.food.recommend.persist.model.StoreRemind;
 import com.tencent.food.recommend.response.StoreRemindResponse;
+import jdk.internal.dynalink.linker.LinkerServices;
+
+import java.util.List;
 
 public interface StoreRemindService {
 
@@ -17,4 +20,7 @@ public interface StoreRemindService {
      * @return
      */
     StoreRemindResponse findRemindById (int id);
+
+
+    List<StoreRemind> findAllRemind(String openId);
 }

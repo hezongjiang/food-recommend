@@ -91,4 +91,17 @@
             #{remindDate,jdbcType=BIGINT},
             #{remarks,jdbcType=VARCHAR})
   </insert>
+
+  <select id="selectByPersonId" parameterType="java.lang.String" resultMap="BaseResultMap">
+    <!--    select-->
+    <!--    &lt;include refid="Base_Column_List" /&gt;-->
+    <!--    from food-->
+    <!--    where id = #{id,jdbcType=INTEGER}-->
+
+    SELECT * FROM store_remind WHERE
+    id in(
+    SELECT store_remind_id
+    FROM person_store_remind
+    WHERE open_id= #{id,jdbcType=VARCHAR})
+  </select>
 </mapper>
