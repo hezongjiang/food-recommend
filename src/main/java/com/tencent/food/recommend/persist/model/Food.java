@@ -5,7 +5,7 @@ public class Food {
 
     private String foodName;
 
-    private Long foodId;
+    private String foodId;
 
     private Integer quantity;
 
@@ -31,11 +31,11 @@ public class Food {
         this.foodName = foodName == null ? null : foodName.trim();
     }
 
-    public Long getFoodId() {
+    public String getFoodId() {
         return foodId;
     }
 
-    public void setFoodId(Long foodId) {
+    public void setFoodId(String foodId) {
         this.foodId = foodId;
     }
 
