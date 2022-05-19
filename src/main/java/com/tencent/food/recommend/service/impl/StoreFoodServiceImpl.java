@@ -2,7 +2,9 @@ package com.tencent.food.recommend.service.impl;
 
 import com.tencent.food.recommend.persist.dao.FoodMapper;
 import com.tencent.food.recommend.persist.dao.PersonFoodMapper;
+import com.tencent.food.recommend.persist.dao.PersonMapper;
 import com.tencent.food.recommend.persist.model.Food;
+import com.tencent.food.recommend.persist.model.Person;
 import com.tencent.food.recommend.persist.model.PersonFood;
 import com.tencent.food.recommend.response.FoodResponse;
 import com.tencent.food.recommend.service.StoreFoodService;
@@ -23,16 +25,23 @@ public class StoreFoodServiceImpl implements StoreFoodService {
     FoodMapper foodMapper;
     @Autowired
     PersonFoodMapper personFoodMapper;
-
+    @Autowired
+    PersonMapper personMapper;
     @Override
     public int InsertFood(String openId, Food food) {
         try {
+            PersonFood personFood=new PersonFood();
+            personFood.setOpenId(openId);
+            personFood.setFoodId(food.getFoodId());
 //            先插入food表
             foodMapper.insert(food);
 //             再插入person_food表
-            PersonFood personFood=new PersonFood();
-            personFood.setOpenId(openId);
-            personFoodMapper.insert(personFood);
+            try{
+                personFoodMapper.insert(personFood);
+            }catch (Exception e){
+                //            A插入不了B先插入成功，要撤销B
+                foodMapper.deleteByFoodId(food.getFoodId());
+            }
 //          成功返回1
             return 1;
         }catch (Exception e){
@@ -78,6 +87,18 @@ public class StoreFoodServiceImpl implements StoreFoodService {
 
             return foodResponse;
         }catch (Exception e){
+            return null;
+        }
+    }
+
+    public Person Authorize(String openId){
+        Person person=new Person();
+//        检验是否在数据库
+        person=personMapper.selectByOpenId(openId);
+        if (person!=null){
+            person.setOpenId(openId);
+            return person;
+        }else {
             return null;
         }
     }

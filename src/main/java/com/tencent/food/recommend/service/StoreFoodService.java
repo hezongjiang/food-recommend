@@ -1,6 +1,7 @@
 package com.tencent.food.recommend.service;
 
 import com.tencent.food.recommend.persist.model.Food;
+import com.tencent.food.recommend.persist.model.Person;
 import com.tencent.food.recommend.response.FoodResponse;
 
 /**
@@ -22,4 +23,6 @@ public interface StoreFoodService {
                                          Integer page,
                                          Integer pageSize,
                                          FoodResponse foodResponse);
+
+    public Person Authorize(String openId);
 }
