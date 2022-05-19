@@ -1,10 +1,7 @@
 package com.tencent.food.recommend.service;
 
-import com.tencent.food.recommend.common.ResultData;
 import com.tencent.food.recommend.persist.model.StoreRemind;
 import com.tencent.food.recommend.response.StoreRemindResponse;
-
-import java.util.List;
 
 public interface StoreRemindService {
 
