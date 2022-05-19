@@ -70,4 +70,17 @@ public class Food {
     public void setRemindDate(Long remindDate) {
         this.remindDate = remindDate;
     }
+
+    @Override
+    public String toString() {
+        return "Food{" +
+                "id=" + id +
+                ", foodName='" + foodName + '\'' +
+                ", foodId=" + foodId +
+                ", quantity=" + quantity +
+                ", weight=" + weight +
+                ", createDate=" + createDate +
+                ", remindDate=" + remindDate +
+                '}';
+    }
 }

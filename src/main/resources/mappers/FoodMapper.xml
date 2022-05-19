@@ -19,6 +19,18 @@
     from food
     where id = #{id,jdbcType=INTEGER}
   </select>
+  <select id="selectByPersonId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+<!--    select-->
+<!--    <include refid="Base_Column_List" />-->
+<!--    from food-->
+<!--    where id = #{id,jdbcType=INTEGER}-->
+
+    SELECT * FROM food WHERE
+    food_id in(
+    SELECT food_id
+    FROM person_food
+    WHERE person_id= #{id,jdbcType=INTEGER})
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from food
     where id = #{id,jdbcType=INTEGER}
@@ -113,5 +125,20 @@
       create_date = #{createDate,jdbcType=BIGINT},
       remind_date = #{remindDate,jdbcType=BIGINT}
     where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByFoodId" parameterType="com.tencent.food.recommend.persist.model.Food">
+    update food
+    <set>
+      <if test="quantity != null">
+        quantity = #{quantity,jdbcType=INTEGER},
+      </if>
+      <if test="weight != null">
+        weight = #{weight,jdbcType=INTEGER},
+      </if>
+      <if test="remindDate != null">
+        remind_date = #{remindDate,jdbcType=BIGINT},
+      </if>
+    </set>
+    where food_id = #{foodId,jdbcType=BIGINT}
   </update>
 </mapper>
