@@ -45,7 +45,7 @@ public class StoreFoodServiceImpl implements StoreFoodService {
     public int deleteByFoodId(String openId,String foodId) {
         try {
 //            先删除Person_Food
-            personFoodMapper.deleteByPersonIdAndFoodId(openId, foodId);
+            personFoodMapper.deleteByOpenIdAndFoodId(openId, foodId);
 //            再删除Food表
             foodMapper.deleteByFoodId(foodId);
             return 1;

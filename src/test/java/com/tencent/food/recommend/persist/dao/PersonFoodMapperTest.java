@@ -28,8 +28,9 @@ class PersonFoodMapperTest {
     @Test
     void deleteByPersonIdAndFoodId() {
         String personId="0";
-        String foodId="0L";
-        personFoodMapper.deleteByPersonIdAndFoodId(personId,foodId);
+        String openId="0L";
+        int status=personFoodMapper.deleteByOpenIdAndFoodId(personId,openId);
+        System.out.println("状态:"+status);
     }
 
 

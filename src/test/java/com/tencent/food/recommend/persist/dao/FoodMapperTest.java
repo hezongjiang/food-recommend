@@ -64,7 +64,7 @@ class FoodMapperTest {
 
     @Test
     void testDeleteByFoodId() {
-        String foodId="0L";
+        String foodId="0";
         int status=foodMapper.deleteByFoodId(foodId);
         System.out.println("状态:"+status);
     }
@@ -76,7 +76,7 @@ class FoodMapperTest {
     void testUpdateByFoodId() {
         Food food=new Food();
         food.setFoodName("大蒜");
-        food.setFoodId("1L");
+        food.setFoodId("3L");
         food.setQuantity(4);
         int status=foodMapper.updateByFoodId(food);
         System.out.println("状态:"+status);

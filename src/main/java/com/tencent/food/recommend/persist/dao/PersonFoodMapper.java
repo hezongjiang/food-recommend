@@ -17,8 +17,8 @@ public interface PersonFoodMapper {
      * @param foodId
      * @return
      */
-    @Delete("delete from person_food where food_id=#{foodId} and open_id=#{personId}")
-    int deleteByPersonIdAndFoodId(String openId,String foodId);
+    @Delete("delete from person_food where food_id=#{foodId} and open_id=#{openId}")
+    int deleteByOpenIdAndFoodId(String openId,String foodId);
 
     int insert(PersonFood record);
 
