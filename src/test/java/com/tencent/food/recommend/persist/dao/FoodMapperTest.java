@@ -78,6 +78,7 @@ class FoodMapperTest {
         food.setFoodName("大蒜");
         food.setFoodId("3L");
         food.setQuantity(4);
+        food.setRemindDate(System.currentTimeMillis());
         int status=foodMapper.updateByFoodId(food);
         System.out.println("状态:"+status);
     }
