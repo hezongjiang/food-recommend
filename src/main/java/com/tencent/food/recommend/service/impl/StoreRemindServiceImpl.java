@@ -1,4 +1,4 @@
-package com.tencent.food.recommend.service.Impl;
+package com.tencent.food.recommend.service.impl;
 
 import com.tencent.food.recommend.persist.dao.PersonStoreRemindMapper;
 import com.tencent.food.recommend.persist.dao.StoreRemindMapper;
