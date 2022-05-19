@@ -1,16 +1,13 @@
-package com.tencent.food.recommend.service.Impl;
+package com.tencent.food.recommend.service.impl;
 
-import com.tencent.food.recommend.common.ResultData;
+import com.tencent.food.recommend.persist.dao.PersonStoreRemindMapper;
 import com.tencent.food.recommend.persist.dao.StoreRemindMapper;
+import com.tencent.food.recommend.persist.model.PersonStoreRemind;
 import com.tencent.food.recommend.persist.model.StoreRemind;
 import com.tencent.food.recommend.response.StoreRemindResponse;
 import com.tencent.food.recommend.service.StoreRemindService;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 
 @Service
@@ -18,7 +15,11 @@ public class StoreRemindServiceImpl implements StoreRemindService {
 
     @Autowired
     StoreRemindMapper storeRemindMapper;
+    @Autowired
+    PersonStoreRemindMapper personStoreRemindMapper;
     StoreRemind storeRemind;
+
+    PersonStoreRemind personStoreRemind;
 
 
     /**
@@ -29,8 +30,15 @@ public class StoreRemindServiceImpl implements StoreRemindService {
      * @return ResultData
      */
     @Override
-    public int add(StoreRemind storeRemind) {
-        int result = storeRemindMapper.insertSelective(storeRemind);
+    public int add(String openId,StoreRemind storeRemind) {
+        //插入Store_remind表
+        int result = storeRemindMapper.insert(storeRemind);
+        //person_remind表
+        int storeRemindId = storeRemind.getId();
+        personStoreRemind = new PersonStoreRemind();
+        personStoreRemind.setOpenId(openId);
+        personStoreRemind.setStoreRemindId(storeRemindId);
+        personStoreRemindMapper.insertSelective(personStoreRemind);
         return result;
     }
 
