@@ -68,7 +68,7 @@
       open_id = #{openId,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <select id="getById" resultType="com.tencent.food.recommend.persist.model.Person">
-    select * from person where id = #{id}
+  <select id="selectByOpenId" resultType="com.tencent.food.recommend.persist.model.Person">
+    select * from person where open_id = #{openId}
   </select>
 </mapper>

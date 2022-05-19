@@ -1,6 +1,7 @@
 package com.tencent.food.recommend.controller;
 
 import com.tencent.food.recommend.common.ResultData;
+import com.tencent.food.recommend.common.consts.WXConstant;
 import com.tencent.food.recommend.common.enums.ReturnCode;
 import com.tencent.food.recommend.common.utils.IdGenerate;
 import com.tencent.food.recommend.persist.model.Food;
@@ -144,13 +145,13 @@ public class StoreFoodController {
      */
     @GetMapping ("/api/storeFood")
     public ResultData<FoodResponse> checkFood(
-//            @CookieValue(name = "Cookie", required = true) String authorization,
+            @CookieValue(name = WXConstant.OPEN_ID, required = true) String openId,
             @RequestParam(value = "foodId", required = false) String foodId,
             @RequestParam(value = "foodName", required = false) String foodName,
             @RequestParam(value = "createDate", required = false) long createDate,
             @RequestParam(value = "remindDate", required = false) long remindDate,
-            @RequestParam(value = "page", required = false) Integer page,
-            @RequestParam(value = "pageSize", required = false) Integer pageSize
+            @RequestParam(value = "page") Integer page,
+            @RequestParam(value = "pageSize") Integer pageSize
     ){
 //        先验证身份,获取User
         Integer personId = 1;
