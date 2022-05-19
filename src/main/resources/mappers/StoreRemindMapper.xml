@@ -26,6 +26,17 @@
     values (#{id,jdbcType=INTEGER}, #{createdDate,jdbcType=BIGINT}, #{remindDate,jdbcType=BIGINT}, 
       #{remarks,jdbcType=VARCHAR})
   </insert>
+
+  <insert id="insertAndGetId" parameterType="com.tencent.food.recommend.persist.model.StoreRemind"
+          useGeneratedKeys="true" keyProperty="id">
+    insert into store_remind (created_date,
+                              remind_date,
+                              remarks)
+    values (#{createdDate,jdbcType=BIGINT},
+            #{remindDate,jdbcType=BIGINT},
+            #{remarks,jdbcType=VARCHAR})
+  </insert>
+
   <insert id="insertSelective" parameterType="com.tencent.food.recommend.persist.model.StoreRemind">
     insert into store_remind
     <trim prefix="(" suffix=")" suffixOverrides=",">

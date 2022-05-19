@@ -17,4 +17,5 @@ public interface StoreRemindMapper {
     int updateByPrimaryKeySelective(StoreRemind record);
 
     int updateByPrimaryKey(StoreRemind record);
+
 }

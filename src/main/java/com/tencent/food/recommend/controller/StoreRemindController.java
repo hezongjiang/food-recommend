@@ -2,6 +2,7 @@ package com.tencent.food.recommend.controller;
 
 import com.tencent.food.recommend.common.ResultData;
 import com.tencent.food.recommend.persist.model.StoreRemind;
+import com.tencent.food.recommend.response.StoreRemindResponse;
 import com.tencent.food.recommend.service.StoreRemindService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ public class StoreRemindController {
     @Autowired
     StoreRemindService storeRemindService;
     StoreRemind storeRemind;
+    StoreRemindResponse storeRemindResponse;
 
     @PostMapping("/add")
     public ResultData addRemind (@RequestParam(value = "remindDate") Long remindDate,
@@ -22,9 +24,15 @@ public class StoreRemindController {
         storeRemind.setCreatedDate(System.currentTimeMillis());
         storeRemind.setRemindDate(remindDate);
         storeRemind.setRemarks(remarks);
-        storeRemindService.add(storeRemind);
-        return ResultData.success("成功");
+        int result = storeRemindService.add(storeRemind);
+        System.out.println(result);
+        return ResultData.success(storeRemind);
 
+    }
+    @GetMapping("/find")
+    public ResultData findRemindById (@RequestParam(value = "id") int id) {
+        storeRemindResponse = storeRemindService.findRemindById(id);
+        return ResultData.success(storeRemindResponse);
     }
 
 }
