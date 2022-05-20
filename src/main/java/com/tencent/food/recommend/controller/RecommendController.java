@@ -16,7 +16,7 @@ public class RecommendController {
     @GetMapping()
     public ResultData<FoodRecommendResponse> test() {
         FoodRecommendResponse foodRecommendResponse = new FoodRecommendResponse();
-        foodRecommendResponse.setFoods(Arrays.asList("白菜", "萝卜"));
+        foodRecommendResponse.setFoods(Arrays.asList("可乐", "啤酒🍺", "苹果🍎"));
         return ResultData.success(foodRecommendResponse);
     }
 }

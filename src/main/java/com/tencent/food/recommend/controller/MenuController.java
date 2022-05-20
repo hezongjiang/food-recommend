@@ -22,10 +22,7 @@ public class MenuController {
         MeatConst.map.forEach((key, value) -> {
             MenuResponse menuResponse = new MenuResponse();
             menuResponse.setName(key);
-            menuResponse.setDetail(value
-                    .replaceAll("\\t", "")
-                    .replaceAll("\\n", "")
-                    .replaceAll("\\\"", "'"));
+            menuResponse.setDetail(value);
             result.add(menuResponse);
         });
         return ResultData.success(result);
