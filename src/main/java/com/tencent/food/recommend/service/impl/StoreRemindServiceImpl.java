@@ -8,14 +8,17 @@ import com.tencent.food.recommend.persist.model.PersonStoreRemind;
 import com.tencent.food.recommend.persist.model.StoreRemind;
 import com.tencent.food.recommend.response.StoreRemindResponse;
 import com.tencent.food.recommend.service.StoreRemindService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
 
 @Service
+@Slf4j
 public class StoreRemindServiceImpl implements StoreRemindService {
 
     @Autowired
@@ -56,10 +59,35 @@ public class StoreRemindServiceImpl implements StoreRemindService {
      * @return
      */
     @Override
-    public List<StoreRemind> findAllRemind(String openId) {
+    public List<StoreRemindResponse> findAllRemind(String openId) {
+
+        StoreRemind nowStoreRemind = new StoreRemind();
+
+        Long nowDate = System.currentTimeMillis();
+
         List<StoreRemind> remindList = new LinkedList<>();
         remindList = storeRemindMapper.selectByPersonId(openId);
-        return remindList;
+
+        //创建新的返回表
+        List<StoreRemindResponse> responsesList = new LinkedList<>();
+        if (remindList != null ) {
+            for (int i = 0; i < remindList.size(); i ++) {
+
+                 StoreRemindResponse storeRemindResponse  = new StoreRemindResponse();
+                 nowStoreRemind = remindList.get(i);
+                 //时间转换
+
+                 Long day = (nowStoreRemind.getRemindDate() - nowDate) / (1000 * 60 * 60 * 24);
+
+                 storeRemindResponse.setDay(day);
+                 storeRemindResponse.setRemark(nowStoreRemind.getRemarks());
+
+                 responsesList.add(storeRemindResponse);
+            }
+        }
+        //根据天数降序排列
+        responsesList.sort(Comparator.comparing(StoreRemindResponse :: getDay));
+        return responsesList;
     }
 
     @Override
