@@ -7,9 +7,11 @@ import com.tencent.food.recommend.persist.model.Food;
 import com.tencent.food.recommend.persist.model.Person;
 import com.tencent.food.recommend.response.FoodResponse;
 import com.tencent.food.recommend.service.FirstEatService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -19,6 +21,7 @@ import java.util.List;
  * @Description:
  */
 @Service
+@Slf4j
 public class FirstEatServiceImpl implements FirstEatService{
     @Autowired
     FoodMapper foodMapper;
@@ -47,10 +50,29 @@ public class FirstEatServiceImpl implements FirstEatService{
     public FoodResponse selectByPersonId(String openId, Food food,
                                   Integer page, Integer pageSize, FoodResponse foodResponse) {
         try {
-            List<Food> foodList=new LinkedList<>();
+            //获取现在的时间
+            Long nowDate = System.currentTimeMillis();
+            //新建一个链表来存储比较之后的元素
+            List<Food> newFoodList = new LinkedList<>();
+
+            List<Food> foodList = new LinkedList<>();
             foodList=foodMapper.selectByPersonId(openId);
-            foodResponse.setList(foodList);
-            foodResponse.setTotal(foodList.size());
+            //当食物链表中不为空
+            if (foodList != null) {
+                for (int i = 0; i < foodList.size(); i ++) {
+                    Food nowfood = foodList.get(i);
+                    //过期日期大于或者等于就加入新链表
+
+                    if (nowfood.getRemindDate() >= nowDate) {
+
+                        newFoodList.add(nowfood);
+                    }
+                }
+            }
+            //根据提醒时间升序排列
+            newFoodList.sort(Comparator.comparing(Food :: getRemindDate));
+            foodResponse.setList(newFoodList);
+            foodResponse.setTotal(newFoodList.size());
             try{
                 foodResponse.setPages((int) Math.ceil(foodList.size()/pageSize));
             }catch (Exception e){
