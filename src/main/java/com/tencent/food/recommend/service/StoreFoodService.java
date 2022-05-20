@@ -24,5 +24,6 @@ public interface StoreFoodService {
                                          Integer pageSize,
                                          FoodResponse foodResponse);
 
+
     public Person Authorize(String openId);
 }
