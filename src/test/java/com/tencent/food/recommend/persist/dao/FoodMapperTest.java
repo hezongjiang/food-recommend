@@ -108,7 +108,19 @@ class FoodMapperTest {
     void selectByPersonIdAndDateScope(){
         String openId="123";
         List<Food> foodList=foodMapper.selectByPersonIdAndDateScope
-                (openId,System.currentTimeMillis()-100000,System.currentTimeMillis()+100000);
+                (openId, 0L,null);
+        for (Food food:foodList) {
+            System.out.println(food);
+        }
+        System.out.println("我是分割线");
+        foodList=foodMapper.selectByPersonIdAndDateScope
+                (openId, null,System.currentTimeMillis());
+        for (Food food:foodList) {
+            System.out.println(food);
+        }
+        System.out.println("我是分割线");
+        foodList=foodMapper.selectByPersonIdAndDateScope
+                (openId, 0L,System.currentTimeMillis());
         for (Food food:foodList) {
             System.out.println(food);
         }

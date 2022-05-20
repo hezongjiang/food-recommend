@@ -20,6 +20,8 @@ public interface StoreFoodService {
 
     public FoodResponse selectByPersonId(String openId,
                                          Food food,
+                                         Long startDate,
+                                         Long finishDate,
                                          Integer page,
                                          Integer pageSize,
                                          FoodResponse foodResponse);

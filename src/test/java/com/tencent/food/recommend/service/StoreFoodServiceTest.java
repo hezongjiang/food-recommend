@@ -47,10 +47,11 @@ class StoreFoodServiceTest {
     void selectByPersonId() {
         String openId="123";
         Food food=new Food();
-        food.setFoodName("瓜");
-        FoodResponse foodResponse=storeFoodService.selectByPersonId(openId,food,0,0,new FoodResponse());
+        food.setFoodName("黄");
+        FoodResponse foodResponse=storeFoodService.selectByPersonId(openId,food,System.currentTimeMillis()-10000000,null,0,0,new FoodResponse());
         for (Food fo:foodResponse.getList()) {
             System.out.println(fo);
+            System.out.println("要求开始时间："+(System.currentTimeMillis()-10000000)+",food创建时间："+fo.getCreateDate());
         }
     }
 }

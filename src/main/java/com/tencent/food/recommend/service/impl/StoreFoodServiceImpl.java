@@ -77,12 +77,15 @@ public class StoreFoodServiceImpl implements StoreFoodService {
 
     @Override
     public FoodResponse selectByPersonId(String openId, Food food,
+                                  Long startDate,Long finishDate,
                                   Integer page, Integer pageSize, FoodResponse foodResponse) {
         try {
             List<Food> foodList=new LinkedList<>();
             if(food.getFoodName()!=null){
 //                按食材名字模糊查找
                 foodList=foodMapper.selectByPersonIdAndFoodName(openId,food.getFoodName());
+            }else if(startDate!=null || finishDate!=null){
+                foodList=foodMapper.selectByPersonIdAndDateScope(openId,startDate,finishDate);
             }else {
                 foodList=foodMapper.selectByPersonId(openId);
             }

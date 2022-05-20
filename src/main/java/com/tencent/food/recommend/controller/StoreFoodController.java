@@ -153,7 +153,7 @@ public class StoreFoodController {
 
     /**
      * 已测试
-     *用户查看个人囤菜，目前不能筛选 筛选后期拓展 暂不支持分页
+     *用户查看个人囤菜，可以按创建时间筛选 模糊查找
      * @param openId
      * @param foodId
      * @param foodName
@@ -170,6 +170,8 @@ public class StoreFoodController {
             @RequestParam(value = "foodName", required = false) String foodName,
             @RequestParam(value = "createDate", required = false) String create_Date,
             @RequestParam(value = "remindDate", required = false) String remind_Date,
+            @RequestParam(value = "startDate", required = false) String start_Date,
+            @RequestParam(value = "finishDate", required = false) String finish_Date,
             @RequestParam(value = "page") Integer page,
             @RequestParam(value = "pageSize") Integer pageSize
     ){
@@ -192,7 +194,15 @@ public class StoreFoodController {
                     Long remindDate=Long.parseLong(remind_Date);
                     food.setRemindDate(remindDate);
                 }
-                foodResponse = storeFoodService.selectByPersonId(openId, food, page, pageSize, foodResponse);
+                Long startDate=null;
+                Long finishDate=null;
+                if (start_Date!=null){
+                    startDate=Long.parseLong(start_Date);
+                }
+                if (finish_Date!=null){
+                    finishDate=Long.parseLong(finish_Date);
+                }
+                foodResponse = storeFoodService.selectByPersonId(openId, food, startDate,finishDate,page, pageSize, foodResponse);
                 //        鉴定处理结果并返回
                 if (foodResponse != null) {
                     return ResultData.success(foodResponse);

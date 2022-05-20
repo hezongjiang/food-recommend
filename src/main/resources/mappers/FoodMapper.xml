@@ -115,11 +115,6 @@
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="selectByPersonId" parameterType="java.lang.String" resultMap="BaseResultMap">
-<!--    select-->
-<!--    &lt;include refid="Base_Column_List" /&gt;-->
-<!--    from food-->
-<!--    where id = #{id,jdbcType=INTEGER}-->
-
     SELECT * FROM food WHERE
     food_id in(
     SELECT food_id
@@ -144,7 +139,16 @@
         SELECT food_id
         FROM person_food
         WHERE open_id= #{id,jdbcType=VARCHAR})
-        and create_date &gt;= #{startDate,jdbcType=BIGINT} and create_date &lt; #{finishDate,jdbcType=BIGINT}
+        <choose>
+          <when test="startDate!=null">
+            and create_date &gt;= #{startDate,jdbcType=BIGINT}
+          </when>
+        </choose>
+        <choose>
+          <when test="finishDate!=null">
+            and create_date &lt; #{finishDate,jdbcType=BIGINT}
+          </when>
+        </choose>
     ORDER BY create_date DESC;
   </select>
   <update id="updateByFoodId" parameterType="com.tencent.food.recommend.persist.model.Food">
