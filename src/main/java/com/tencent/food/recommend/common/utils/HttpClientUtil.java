@@ -19,7 +19,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class HttpClientUtil {
+public final class HttpClientUtil {
+
+    private HttpClientUtil() {}
 
     public static String doGet(String url, Map<String, String> param) {
 
@@ -31,7 +33,7 @@ public class HttpClientUtil {
         try {
             // 创建uri
             URIBuilder builder = new URIBuilder(url);
-            if (param != null) {
+            if (param != null && param.size() > 0) {
                 for (String key : param.keySet()) {
                     builder.addParameter(key, param.get(key));
                 }
