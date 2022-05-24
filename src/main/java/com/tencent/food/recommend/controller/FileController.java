@@ -1,8 +1,14 @@
 package com.tencent.food.recommend.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.tencent.food.recommend.common.ResultData;
+import com.tencent.food.recommend.common.enums.ReturnCode;
+import com.tencent.food.recommend.common.utils.HttpClientUtil;
+import com.tencent.food.recommend.response.RecognizeFoodRes;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.ui.Model;
+import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -12,6 +18,9 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("upload")
@@ -21,18 +30,19 @@ public class FileController {
     private String imagePath;
 
     @PostMapping(value = "image")
-    public ResultData<String> fileUpload(@RequestParam(value = "file") MultipartFile file, Model model, HttpServletRequest request) {
+    public ResultData<List<String>> fileUpload(@RequestParam(value = "file") MultipartFile file, Model model, HttpServletRequest request) {
         if (file.isEmpty()) {
-            return ResultData.success("文件为空空");
+            return ResultData.fail(ReturnCode.RC999.getCode(), "文件为空空");
         }
         String fileName = file.getOriginalFilename();  // 文件名
         if (fileName == null || fileName.length() == 0) {
-            return ResultData.success("文件名为空");
+            return ResultData.fail(ReturnCode.RC999.getCode(), "文件为空空");
         }
         String suffixName = fileName.substring(fileName.lastIndexOf("."));  // 后缀名
         String filePath = imagePath; // 上传后的路径
         fileName = System.currentTimeMillis() + suffixName; // 新文件名
-        File dest = new File(filePath + fileName);
+        String distPath = filePath + fileName;
+        File dest = new File(distPath);
         if (!dest.getParentFile().exists()) {
             dest.getParentFile().mkdirs();
         }
@@ -43,7 +53,16 @@ public class FileController {
         }
 //        String filename = "/images/" + fileName;
 //        model.addAttribute("filename", filename);
-
-        return ResultData.success(filePath + fileName);
+        Map<String, String> param = new HashMap<>();
+        param.put("image_path", distPath);
+        String s = HttpClientUtil.doGet("http://locolhost:8080/identify_picture", param);
+        if (!StringUtils.hasText(s)) {
+            return ResultData.fail(ReturnCode.RC999.getCode(), "识别失败");
+        }
+        RecognizeFoodRes res = JSONObject.parseObject(s, RecognizeFoodRes.class);
+        if (res == null || CollectionUtils.isEmpty(res.getContent())) {
+            return ResultData.fail(ReturnCode.RC999.getCode(), "识别失败");
+        }
+        return ResultData.success(res.getContent());
     }
 }
