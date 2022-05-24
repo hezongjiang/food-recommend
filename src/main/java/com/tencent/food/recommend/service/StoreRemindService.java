@@ -21,7 +21,7 @@ public interface StoreRemindService {
      * @return
      */
 
-    List<StoreRemind> findAllRemind(String openId);
+    List<StoreRemindResponse> findAllRemind(String openId);
 
     /**
      * 检查该opinid是不是在数据库中

@@ -51,7 +51,7 @@ public class StoreRemindController {
     public ResultData findRemindByOpenId (@RequestHeader(name = WXConstant.OPEN_ID) String openId) {
         Person person= storeRemindService.Authorize(openId);
         if (person != null) {
-            List<StoreRemind> result = storeRemindService.findAllRemind(openId);
+            List<StoreRemindResponse> result = storeRemindService.findAllRemind(openId);
             if (result != null ) {
                 return ResultData.success(result);
             } else {
