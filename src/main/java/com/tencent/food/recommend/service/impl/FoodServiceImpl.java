@@ -1,9 +1,12 @@
 package com.tencent.food.recommend.service.impl;
 
 import com.tencent.food.recommend.persist.dao.FoodMapper;
+import com.tencent.food.recommend.persist.model.Food;
 import com.tencent.food.recommend.service.FoodService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 
 /**
@@ -18,12 +21,16 @@ public class FoodServiceImpl implements FoodService {
     @Autowired
     FoodMapper foodMapper;
 
-    /**
-     * 删除food通过foodID
-     * @param foodId
-     */
+
     @Override
     public void deleteByFoodId(String foodId) {
         foodMapper.deleteByFoodId(foodId);
+    }
+
+
+    @Override
+    public List<Food> selectByPersonId(String openId) {
+        List<Food> foodList = foodMapper.selectByPersonId(openId);
+        return foodList;
     }
 }
