@@ -26,4 +26,11 @@ public class PersonStoreRemindServiceImpl implements PersonStoreRemindService {
         personStoreRemindMapperr.insertSelective(personStoreRemind);
 
     }
+
+    @Override
+    public void deleteByStoreRemindId(Integer storeRemindId) {
+
+        personStoreRemindMapperr.deleteByStoreRemindId(storeRemindId);
+
+    }
 }

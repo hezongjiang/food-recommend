@@ -20,5 +20,7 @@ public interface StoreRemindService {
 
     List<StoreRemind> findAllRemind(String openId);
 
+    void deleteById (Integer id);
+
 
 }

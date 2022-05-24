@@ -18,4 +18,10 @@ public interface PersonStoreRemindService {
      * @param storeRemindId 囤货提醒对应的id
      */
     void insertPersonStoreRemind (String openId, Integer storeRemindId);
+
+    /**
+     * 根据storeRemindId删除
+     * @param storeRemindId
+     */
+    void deleteByStoreRemindId (Integer storeRemindId);
 }

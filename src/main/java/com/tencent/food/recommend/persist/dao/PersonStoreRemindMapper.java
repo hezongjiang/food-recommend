@@ -16,4 +16,6 @@ public interface PersonStoreRemindMapper {
     int updateByPrimaryKeySelective(PersonStoreRemind record);
 
     int updateByPrimaryKey(PersonStoreRemind record);
+
+    int deleteByStoreRemindId (Integer id);
 }

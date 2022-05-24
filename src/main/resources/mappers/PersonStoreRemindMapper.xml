@@ -19,6 +19,10 @@
     delete from person_store_remind
     where id = #{id,jdbcType=INTEGER}
   </delete>
+  <delete id="deleteByStoreRemindId" parameterType="java.lang.Integer">
+    delete from person_store_remind
+    where store_remind_id = #{storeRemindId,jdbcType=INTEGER}
+  </delete>
   <insert id="insert" parameterType="com.tencent.food.recommend.persist.model.PersonStoreRemind">
     insert into person_store_remind (id, open_id, store_remind_id
       )

@@ -61,6 +61,13 @@ public class StoreRemindServiceImpl implements StoreRemindService {
         return remindList;
     }
 
+    @Override
+    public void deleteById(Integer id) {
+        //删除store_remind表
+        storeRemindMapper.deleteByPrimaryKey(id);
+        //删除关联表person_store_remind表
+        personStoreRemindMapper.deleteByStoreRemindId(id);
+    }
 
 
 }

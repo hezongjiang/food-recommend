@@ -29,6 +29,13 @@ public class StoreRemindController {
     PersonStoreRemindService personStoreRemindService;
 
 
+    /**
+     * 增加提醒
+     * @param openId
+     * @param remindDate
+     * @param remarks
+     * @return
+     */
     @PostMapping("/add")
     public ResultData addRemind (@RequestHeader(name = "openid") String openId,
                                  @RequestParam(value = "remindDate") Long remindDate,
@@ -62,6 +69,11 @@ public class StoreRemindController {
     }
 
 
+    /**
+     * 查找所以提醒
+     * @param openId
+     * @return
+     */
     @GetMapping("/find")
     public ResultData findRemindByOpenId (@RequestHeader(name = WXConstant.OPEN_ID) String openId) {
         Person person = personService.findPersonByOpenId(openId);
@@ -71,6 +83,19 @@ public class StoreRemindController {
         List<StoreRemind> storeRemindList = storeRemindService.findAllRemind(openId);
         return ResultData.success(storeRemindList);
 
+
+    }
+
+    @DeleteMapping("/delete")
+    public ResultData deleteById (@RequestParam(value = "id", required = true) String remindId) {
+        Integer id = null;
+        if (remindId != null) {
+            id = Integer.valueOf(remindId);
+            storeRemindService.deleteById(id);
+            return ResultData.ok("删除成功");
+        } else {
+            return ResultData.error();
+        }
 
     }
 
