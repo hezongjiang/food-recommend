@@ -55,7 +55,7 @@ public class FileController {
 //        model.addAttribute("filename", filename);
         Map<String, String> param = new HashMap<>();
         param.put("image_path", distPath);
-        String s = HttpClientUtil.doGet("http://locolhost:8080/identify_picture", param);
+        String s = HttpClientUtil.doGet("http://127.0.0.1:8080/identify_picture", param);
         if (!StringUtils.hasText(s)) {
             return ResultData.fail(ReturnCode.RC999.getCode(), "识别失败");
         }
