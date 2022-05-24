@@ -125,6 +125,27 @@
     SELECT food_id
     FROM person_food
     WHERE open_id= #{id,jdbcType=VARCHAR})
+    ORDER BY create_date DESC;
+  </select>
+
+  <select id="selectByPersonIdAndFoodName" resultMap="BaseResultMap">
+    SELECT * FROM food WHERE
+        food_id in(
+        SELECT food_id
+        FROM person_food
+        WHERE open_id= #{id,jdbcType=VARCHAR})
+        and food_name like CONCAT('%',#{foodName,jdbcType=VARCHAR},'%')
+    ORDER BY create_date DESC;
+  </select>
+
+  <select id="selectByPersonIdAndDateScope" resultMap="BaseResultMap">
+    SELECT * FROM food WHERE
+        food_id in(
+        SELECT food_id
+        FROM person_food
+        WHERE open_id= #{id,jdbcType=VARCHAR})
+        and create_date &gt;= #{startDate,jdbcType=BIGINT} and create_date &lt; #{finishDate,jdbcType=BIGINT}
+    ORDER BY create_date DESC;
   </select>
   <update id="updateByFoodId" parameterType="com.tencent.food.recommend.persist.model.Food">
     update food

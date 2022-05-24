@@ -80,7 +80,12 @@ public class StoreFoodServiceImpl implements StoreFoodService {
                                   Integer page, Integer pageSize, FoodResponse foodResponse) {
         try {
             List<Food> foodList=new LinkedList<>();
-            foodList=foodMapper.selectByPersonId(openId);
+            if(food.getFoodName()!=null){
+//                按食材名字模糊查找
+                foodList=foodMapper.selectByPersonIdAndFoodName(openId,food.getFoodName());
+            }else {
+                foodList=foodMapper.selectByPersonId(openId);
+            }
             foodResponse.setList(foodList);
             foodResponse.setTotal(foodList.size());
             try{
@@ -93,6 +98,7 @@ public class StoreFoodServiceImpl implements StoreFoodService {
             return null;
         }
     }
+
 
     @Override
     public Person Authorize(String openId){

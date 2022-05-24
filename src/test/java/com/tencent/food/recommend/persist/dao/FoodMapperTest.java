@@ -1,5 +1,6 @@
 package com.tencent.food.recommend.persist.dao;
 
+import com.tencent.food.recommend.common.utils.IdGenerate;
 import com.tencent.food.recommend.persist.model.Food;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -34,8 +35,8 @@ class FoodMapperTest {
     @Test
     void testInsert() {
         Food food=new Food();
-        food.setFoodName("大蒜");
-        food.setFoodId("3L");
+        food.setFoodName("黄瓜");
+        food.setFoodId(IdGenerate.generate("FOOD_ID"));
         food.setQuantity(2);
         food.setCreateDate(System.currentTimeMillis());
         int status=foodMapper.insert(food);
@@ -91,5 +92,25 @@ class FoodMapperTest {
             System.out.println(food);
         }
 
+    }
+
+    @Test
+    void selectByPersonIdAndFoodName() {
+        String foodName="瓜";
+        String openId="123";
+        List<Food> foodList=foodMapper.selectByPersonIdAndFoodName(openId,foodName);
+        for (Food food:foodList) {
+            System.out.println(food);
+        }
+    }
+
+    @Test
+    void selectByPersonIdAndDateScope(){
+        String openId="123";
+        List<Food> foodList=foodMapper.selectByPersonIdAndDateScope
+                (openId,System.currentTimeMillis()-100000,System.currentTimeMillis()+100000);
+        for (Food food:foodList) {
+            System.out.println(food);
+        }
     }
 }

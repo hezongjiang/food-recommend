@@ -44,15 +44,19 @@ public class WechatController {
         if (!StringUtils.hasText(openid)) {
             return ResultData.fail(ReturnCode.RC999.getCode(), "登陆失败");
         }
-
         Person person = personMapper.selectByOpenId(openid);
         // 新用户
         if (person == null) {
             person = new Person();
             person.setOpenId(openid);
+            // 用户信息入库
+            if (rawDataJson != null) {
+                String nickName = rawDataJson.getString("nickName");
+                String avatarUrl = rawDataJson.getString("avatarUrl");
+                person.setName(nickName);
+            }
             personMapper.insertSelective(person);
         }
-
         Cookie cookie = new Cookie(WXConstant.OPEN_ID, openid);
         // 设置为当前项目下都携带这个cookie
         cookie.setPath(request.getContextPath());
