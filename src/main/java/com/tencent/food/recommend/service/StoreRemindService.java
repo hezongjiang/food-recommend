@@ -14,19 +14,14 @@ public interface StoreRemindService {
      * @param storeRemind
      * @return
      */
-    int add (String openId,StoreRemind storeRemind);
+    int addAndGetId(StoreRemind storeRemind);
 
     /**
      * 查询所有提醒信息，封装成 StoreRemindResponse 对象
      * @return
      */
 
-    List<StoreRemindResponse> findAllRemind(String openId);
+    List<StoreRemind> findAllRemind(String openId);
 
-    /**
-     * 检查该opinid是不是在数据库中
-     * @param openId
-     * @return
-     */
-    public Person Authorize(String openId);
+
 }

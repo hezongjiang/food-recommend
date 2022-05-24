@@ -6,10 +6,13 @@ import com.tencent.food.recommend.common.enums.ReturnCode;
 import com.tencent.food.recommend.persist.model.Person;
 import com.tencent.food.recommend.persist.model.StoreRemind;
 import com.tencent.food.recommend.response.StoreRemindResponse;
+import com.tencent.food.recommend.service.PersonService;
+import com.tencent.food.recommend.service.PersonStoreRemindService;
 import com.tencent.food.recommend.service.StoreRemindService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -22,7 +25,12 @@ public class StoreRemindController {
     @Autowired
     StoreRemindService storeRemindService;
 
-    StoreRemind storeRemind;
+    @Autowired
+    PersonService personService;
+
+    @Autowired
+    PersonStoreRemindService personStoreRemindService;
+
 
     @PostMapping("/add")
     public ResultData addRemind (@RequestHeader(name = "openid") String openId,
@@ -31,35 +39,40 @@ public class StoreRemindController {
         //先代替openid
         //String openId = "1";
 
-        storeRemind = new StoreRemind();
+        //查询此用户是否存在
+        Person person = personService.findPersonByOpenId(openId);
+
+        if (person == null) {
+            //用户不存在
+            return ResultData.error(ReturnCode.USER_NOT_EXISTS);
+        }
+
+        if (remindDate == null) {
+            //remindDate为空
+            return ResultData.error(ReturnCode.REMIND_DATE_EMPTY);
+        }
+        StoreRemind storeRemind = new StoreRemind();
         storeRemind.setCreatedDate(System.currentTimeMillis());
         storeRemind.setRemindDate(remindDate);
         storeRemind.setRemarks(remarks);
-        log.info("此时的openid为：" + openId);
-        int result = storeRemindService.add(openId,storeRemind);
-        if (result == 1) {
-            log.info("添加囤货提醒成功");
-            return ResultData.success(storeRemind);
-        } else {
-            log.info("添加囤货提醒失败");
-            return ResultData.fail(ReturnCode.RC999.getCode(), "插入失败");
-        }
 
+        int storeRemindId = storeRemindService.addAndGetId(storeRemind);
+        //更新peronStoreRemind表
+        personStoreRemindService.insertPersonStoreRemind(openId, storeRemindId);
+        //将添加的数据返回前端
+        return ResultData.success(storeRemind);
 
     }
+
+
     @GetMapping("/find")
     public ResultData findRemindByOpenId (@RequestHeader(name = WXConstant.OPEN_ID) String openId) {
-        Person person= storeRemindService.Authorize(openId);
-        if (person != null) {
-            List<StoreRemindResponse> result = storeRemindService.findAllRemind(openId);
-            if (result != null ) {
-                return ResultData.success(result);
-            } else {
-                return ResultData.fail(ReturnCode.RC999.getCode(), "查询失败");
-            }
-        } else {
-            return ResultData.fail(ReturnCode.RC401.getCode(), "请登录重试");
+        Person person = personService.findPersonByOpenId(openId);
+        if (person == null) {
+            return ResultData.error(ReturnCode.USER_NOT_EXISTS);
         }
+        List<StoreRemind> storeRemindList = storeRemindService.findAllRemind(openId);
+        return ResultData.success(storeRemindList);
 
 
     }
