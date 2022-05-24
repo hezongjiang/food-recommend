@@ -13,7 +13,7 @@ public class ResultData<T> {
      * 结果状态
      * @see ReturnCode
      */
-    private int status;
+    private Integer status;
 
     private String message;
 
@@ -22,6 +22,12 @@ public class ResultData<T> {
     private long timestamp ;
 
     public ResultData (){
+        this.timestamp = System.currentTimeMillis();
+    }
+
+    public ResultData (Integer status, String message) {
+        this.status = status;
+        this.message = message;
         this.timestamp = System.currentTimeMillis();
     }
 
@@ -38,6 +44,21 @@ public class ResultData<T> {
         resultData.setStatus(code);
         resultData.setMessage(message);
         return resultData;
+    }
+
+    public static ResultData ok () {
+        return new ResultData(1, "success");
+    }
+    public static ResultData ok(String message) {
+        return new ResultData(1, message);
+    }
+
+    public static ResultData error () {
+        return new ResultData(ReturnCode.RC999.getCode(), ReturnCode.RC999.getMessage());
+    }
+
+    public static ResultData error (ReturnCode returnCode) {
+        return new ResultData(returnCode.getCode(),returnCode.getMessage());
     }
 
 }
