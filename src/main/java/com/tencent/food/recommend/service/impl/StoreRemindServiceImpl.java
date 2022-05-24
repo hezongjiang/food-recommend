@@ -1,12 +1,8 @@
 package com.tencent.food.recommend.service.impl;
 
-import com.tencent.food.recommend.persist.dao.PersonMapper;
 import com.tencent.food.recommend.persist.dao.PersonStoreRemindMapper;
 import com.tencent.food.recommend.persist.dao.StoreRemindMapper;
-import com.tencent.food.recommend.persist.model.Person;
-import com.tencent.food.recommend.persist.model.PersonStoreRemind;
 import com.tencent.food.recommend.persist.model.StoreRemind;
-import com.tencent.food.recommend.response.StoreRemindResponse;
 import com.tencent.food.recommend.service.StoreRemindService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -5,14 +5,11 @@ import com.tencent.food.recommend.common.consts.WXConstant;
 import com.tencent.food.recommend.common.enums.ReturnCode;
 import com.tencent.food.recommend.persist.model.Person;
 import com.tencent.food.recommend.persist.model.StoreRemind;
-import com.tencent.food.recommend.response.StoreRemindResponse;
 import com.tencent.food.recommend.service.PersonService;
 import com.tencent.food.recommend.service.PersonStoreRemindService;
 import com.tencent.food.recommend.service.StoreRemindService;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
