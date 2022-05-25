@@ -87,7 +87,14 @@ public class StoreRemindController {
     }
 
     @DeleteMapping("/delete")
-    public ResultData deleteById (@RequestParam(value = "id", required = true) String remindId) {
+    public ResultData deleteById ( @RequestHeader(name = WXConstant.OPEN_ID) String openId,
+                                   @RequestParam(value = "id", required = true) String remindId) {
+
+        Person person = personService.findPersonByOpenId(openId);
+        if (person == null) {
+            return ResultData.error(ReturnCode.USER_NOT_EXISTS);
+        }
+
         Integer id = null;
         if (remindId != null) {
             id = Integer.valueOf(remindId);
