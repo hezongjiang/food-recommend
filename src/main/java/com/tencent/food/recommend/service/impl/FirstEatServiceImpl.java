@@ -57,11 +57,13 @@ public class FirstEatServiceImpl implements FirstEatService{
 
             //根据提醒时间升序排列
             foodList.sort(Comparator.comparing(Food :: getRemindDate));
+            foodResponse.setPage(page);
+            foodResponse.setPageSize(pageSize);
             foodResponse.setList(foodList);
             foodResponse.setTotal(foodList.size());
             //分页
             try{
-                foodResponse.setPages((int) Math.ceil(foodList.size()/pageSize));
+                foodResponse.setPages((int) Math.ceil(foodList.size()/pageSize + 1));
             }catch (Exception e){
 //                不需要分页
             }
