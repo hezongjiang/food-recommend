@@ -109,12 +109,18 @@
 <!--               enableDeleteByExample="false">-->
 <!--        </table>-->
 
-<!--        <table tableName="person_store_remind" domainObjectName="PersonStoreRemind"-->
-<!--               enableSelectByExample="false"-->
-<!--               enableCountByExample="false"-->
-<!--               enableUpdateByExample="false"-->
-<!--               enableDeleteByExample="false">-->
-<!--        </table>-->
+        <table tableName="moment" domainObjectName="Moment"
+               enableSelectByExample="false"
+               enableCountByExample="false"
+               enableUpdateByExample="false"
+               enableDeleteByExample="false">
+        </table>
+        <table tableName="swap_food" domainObjectName="SwapFood"
+               enableSelectByExample="false"
+               enableCountByExample="false"
+               enableUpdateByExample="false"
+               enableDeleteByExample="false">
+        </table>
 
         <!-- geelynote mybatis插件的搭建 -->
     </context>

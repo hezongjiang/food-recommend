@@ -6,6 +6,7 @@ import com.tencent.food.recommend.common.enums.ReturnCode;
 import com.tencent.food.recommend.common.translate.TransApi;
 import com.tencent.food.recommend.common.translate.TranslateResult;
 import com.tencent.food.recommend.common.utils.HttpClientUtil;
+import com.tencent.food.recommend.common.utils.ImageUpload;
 import com.tencent.food.recommend.response.RecognizeFoodRes;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.ui.Model;
@@ -18,8 +19,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.File;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,25 +35,29 @@ public class FileController {
 
     @PostMapping(value = "image")
     public ResultData<List<String>> fileUpload(@RequestParam(value = "file") MultipartFile file, Model model, HttpServletRequest request) {
-        if (file.isEmpty()) {
+//        if (file.isEmpty()) {
+//            return ResultData.fail(ReturnCode.RC999.getCode(), "文件为空空");
+//        }
+//        String fileName = file.getOriginalFilename();  // 文件名
+//        if (fileName == null || fileName.length() == 0) {
+//            return ResultData.fail(ReturnCode.RC999.getCode(), "文件为空空");
+//        }
+//        String suffixName = fileName.substring(fileName.lastIndexOf("."));  // 后缀名
+//        String filePath = imagePath; // 上传后的路径
+//        fileName = System.currentTimeMillis() + suffixName; // 新文件名
+//        String distPath = filePath + fileName;
+//        File dest = new File(distPath);
+//        if (!dest.getParentFile().exists()) {
+//            dest.getParentFile().mkdirs();
+//        }
+//        try {
+//            file.transferTo(dest);
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+        String distPath = ImageUpload.upload(file);
+        if (distPath == null) {
             return ResultData.fail(ReturnCode.RC999.getCode(), "文件为空空");
-        }
-        String fileName = file.getOriginalFilename();  // 文件名
-        if (fileName == null || fileName.length() == 0) {
-            return ResultData.fail(ReturnCode.RC999.getCode(), "文件为空空");
-        }
-        String suffixName = fileName.substring(fileName.lastIndexOf("."));  // 后缀名
-        String filePath = imagePath; // 上传后的路径
-        fileName = System.currentTimeMillis() + suffixName; // 新文件名
-        String distPath = filePath + fileName;
-        File dest = new File(distPath);
-        if (!dest.getParentFile().exists()) {
-            dest.getParentFile().mkdirs();
-        }
-        try {
-            file.transferTo(dest);
-        } catch (IOException e) {
-            e.printStackTrace();
         }
         Map<String, String> param = new HashMap<>();
         param.put("image_path", distPath);
