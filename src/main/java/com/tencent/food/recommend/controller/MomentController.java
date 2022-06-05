@@ -35,12 +35,18 @@ public class MomentController {
         return ResultData.success(null);
     }
 
+    /**
+     * 列表
+     */
     @GetMapping("list")
     public ResultData<List<MomentListResponse>> list(@RequestParam(value = "page") Integer page,
                                                      @RequestParam(value = "pageSize") Integer pageSize) {
         return ResultData.success(null);
     }
 
+    /**
+     * 详情
+     */
     @GetMapping("detail")
     public ResultData<MomentDetailResponse> detail(@RequestParam(value = "momentId") String momentId) {
         return ResultData.success(null);
