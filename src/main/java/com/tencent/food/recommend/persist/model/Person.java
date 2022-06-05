@@ -7,6 +7,8 @@ public class Person {
 
     private String openId;
 
+    private String avatarUrl;
+
     public Integer getId() {
         return id;
     }
@@ -29,5 +31,13 @@ public class Person {
 
     public void setOpenId(String openId) {
         this.openId = openId == null ? null : openId.trim();
+    }
+
+    public String getAvatarUrl() {
+        return avatarUrl;
+    }
+
+    public void setAvatarUrl(String avatarUrl) {
+        this.avatarUrl = avatarUrl == null ? null : avatarUrl.trim();
     }
 }

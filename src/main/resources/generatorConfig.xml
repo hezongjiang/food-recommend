@@ -74,47 +74,47 @@
         <!--enableDeleteByExample（默认true）：MyBatis3Simple为false，指定是否生成动态删除语句；-->
         <!--enableCountByExample（默认true）：MyBatis3Simple为false，指定是否生成动态查询总条数语句（用于分页的总条数查询）；-->
         <!--enableUpdateByExample（默认true）：MyBatis3Simple为false，指定是否生成动态修改语句（只修改对象中不为空的属性）；-->
-        <table tableName="person" domainObjectName="Person"
-               enableSelectByExample="false"
-               enableCountByExample="false"
-               enableUpdateByExample="false"
-               enableDeleteByExample="false">
-        </table>
+<!--        <table tableName="person" domainObjectName="Person"-->
+<!--               enableSelectByExample="false"-->
+<!--               enableCountByExample="false"-->
+<!--               enableUpdateByExample="false"-->
+<!--               enableDeleteByExample="false">-->
+<!--        </table>-->
 
-        <table tableName="first_eat" domainObjectName="FirstEat"
-               enableSelectByExample="false"
-               enableCountByExample="false"
-               enableUpdateByExample="false"
-               enableDeleteByExample="false">
-        </table>
+<!--        <table tableName="first_eat" domainObjectName="FirstEat"-->
+<!--               enableSelectByExample="false"-->
+<!--               enableCountByExample="false"-->
+<!--               enableUpdateByExample="false"-->
+<!--               enableDeleteByExample="false">-->
+<!--        </table>-->
 
-        <table tableName="food" domainObjectName="Food"
-               enableSelectByExample="false"
-               enableCountByExample="false"
-               enableUpdateByExample="false"
-               enableDeleteByExample="false">
-        </table>
+<!--        <table tableName="food" domainObjectName="Food"-->
+<!--               enableSelectByExample="false"-->
+<!--               enableCountByExample="false"-->
+<!--               enableUpdateByExample="false"-->
+<!--               enableDeleteByExample="false">-->
+<!--        </table>-->
 
-        <table tableName="person_food" domainObjectName="PersonFood"
-               enableSelectByExample="false"
-               enableCountByExample="false"
-               enableUpdateByExample="false"
-               enableDeleteByExample="false">
-        </table>
+<!--        <table tableName="person_food" domainObjectName="PersonFood"-->
+<!--               enableSelectByExample="false"-->
+<!--               enableCountByExample="false"-->
+<!--               enableUpdateByExample="false"-->
+<!--               enableDeleteByExample="false">-->
+<!--        </table>-->
 
-        <table tableName="store_remind" domainObjectName="StoreRemind"
-               enableSelectByExample="false"
-               enableCountByExample="false"
-               enableUpdateByExample="false"
-               enableDeleteByExample="false">
-        </table>
+<!--        <table tableName="store_remind" domainObjectName="StoreRemind"-->
+<!--               enableSelectByExample="false"-->
+<!--               enableCountByExample="false"-->
+<!--               enableUpdateByExample="false"-->
+<!--               enableDeleteByExample="false">-->
+<!--        </table>-->
 
-        <table tableName="person_store_remind" domainObjectName="PersonStoreRemind"
-               enableSelectByExample="false"
-               enableCountByExample="false"
-               enableUpdateByExample="false"
-               enableDeleteByExample="false">
-        </table>
+<!--        <table tableName="person_store_remind" domainObjectName="PersonStoreRemind"-->
+<!--               enableSelectByExample="false"-->
+<!--               enableCountByExample="false"-->
+<!--               enableUpdateByExample="false"-->
+<!--               enableDeleteByExample="false">-->
+<!--        </table>-->
 
         <!-- geelynote mybatis插件的搭建 -->
     </context>
