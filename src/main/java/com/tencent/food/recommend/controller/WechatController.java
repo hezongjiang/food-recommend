@@ -54,6 +54,7 @@ public class WechatController {
                 String nickName = rawDataJson.getString("nickName");
                 String avatarUrl = rawDataJson.getString("avatarUrl");
                 person.setName(nickName);
+                person.setAvatarUrl(avatarUrl);
             }
             personMapper.insertSelective(person);
         }
@@ -64,5 +65,4 @@ public class WechatController {
 
         return ResultData.success(person);
     }
-
 }

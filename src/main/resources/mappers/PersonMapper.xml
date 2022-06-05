@@ -21,8 +21,7 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.tencent.food.recommend.persist.model.Person">
-    insert into person (id, name, open_id, 
-      avatar_url)
+    insert into person (id, name, open_id, avatar_url)
     values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{openId,jdbcType=VARCHAR}, 
       #{avatarUrl,jdbcType=VARCHAR})
   </insert>
