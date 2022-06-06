@@ -25,7 +25,9 @@ public enum ReturnCode {
     UNSUPPORTED_GRANT_TYPE(1003, "不支持的认证模式"),
 
 
-    USER_NOT_EXISTS(3001, "用户不存在");
+    USER_NOT_EXISTS(3001, "用户不存在"),
+    REMIND_DATE_EMPTY(3002, "提醒时间不能为空");
+
 
     /**自定义状态码**/
     private final Integer code;

@@ -5,9 +5,10 @@
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="open_id" jdbcType="VARCHAR" property="openId" />
+    <result column="avatar_url" jdbcType="VARCHAR" property="avatarUrl" />
   </resultMap>
   <sql id="Base_Column_List">
-    id, name, open_id
+    id, name, open_id, avatar_url
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
@@ -20,10 +21,9 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.tencent.food.recommend.persist.model.Person">
-    insert into person (id, name, open_id
-      )
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{openId,jdbcType=VARCHAR}
-      )
+    insert into person (id, name, open_id, avatar_url)
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{openId,jdbcType=VARCHAR}, 
+      #{avatarUrl,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.tencent.food.recommend.persist.model.Person">
     insert into person
@@ -37,6 +37,9 @@
       <if test="openId != null">
         open_id,
       </if>
+      <if test="avatarUrl != null">
+        avatar_url,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -47,6 +50,9 @@
       </if>
       <if test="openId != null">
         #{openId,jdbcType=VARCHAR},
+      </if>
+      <if test="avatarUrl != null">
+        #{avatarUrl,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -59,13 +65,17 @@
       <if test="openId != null">
         open_id = #{openId,jdbcType=VARCHAR},
       </if>
+      <if test="avatarUrl != null">
+        avatar_url = #{avatarUrl,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.tencent.food.recommend.persist.model.Person">
     update person
     set name = #{name,jdbcType=VARCHAR},
-      open_id = #{openId,jdbcType=VARCHAR}
+      open_id = #{openId,jdbcType=VARCHAR},
+      avatar_url = #{avatarUrl,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <select id="selectByOpenId" resultMap="BaseResultMap">

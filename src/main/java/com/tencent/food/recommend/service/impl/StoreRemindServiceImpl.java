@@ -1,12 +1,8 @@
 package com.tencent.food.recommend.service.impl;
 
-import com.tencent.food.recommend.persist.dao.PersonMapper;
 import com.tencent.food.recommend.persist.dao.PersonStoreRemindMapper;
 import com.tencent.food.recommend.persist.dao.StoreRemindMapper;
-import com.tencent.food.recommend.persist.model.Person;
-import com.tencent.food.recommend.persist.model.PersonStoreRemind;
 import com.tencent.food.recommend.persist.model.StoreRemind;
-import com.tencent.food.recommend.response.StoreRemindResponse;
 import com.tencent.food.recommend.service.StoreRemindService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,12 +21,8 @@ public class StoreRemindServiceImpl implements StoreRemindService {
     StoreRemindMapper storeRemindMapper;
     @Autowired
     PersonStoreRemindMapper personStoreRemindMapper;
-    @Autowired
-    PersonMapper personMapper;
 
-    StoreRemind storeRemind;
 
-    PersonStoreRemind personStoreRemind;
 
 
     /**
@@ -41,16 +33,15 @@ public class StoreRemindServiceImpl implements StoreRemindService {
      * @return ResultData
      */
     @Override
-    public int add(String openId,StoreRemind storeRemind) {
+    public int addAndGetId(StoreRemind storeRemind) {
         //插入Store_remind表
-        int result = storeRemindMapper.insert(storeRemind);
-        //person_remind表
+        storeRemindMapper.insert(storeRemind);
+
+        //获取加入数据库的id
         int storeRemindId = storeRemind.getId();
-        personStoreRemind = new PersonStoreRemind();
-        personStoreRemind.setOpenId(openId);
-        personStoreRemind.setStoreRemindId(storeRemindId);
-        personStoreRemindMapper.insertSelective(personStoreRemind);
-        return result;
+        log.info("插入Store_remind表,id为：" + storeRemindId);
+
+        return storeRemindId;
     }
 
 
@@ -59,48 +50,23 @@ public class StoreRemindServiceImpl implements StoreRemindService {
      * @return
      */
     @Override
-    public List<StoreRemindResponse> findAllRemind(String openId) {
-
-        StoreRemind nowStoreRemind = new StoreRemind();
-
-        Long nowDate = System.currentTimeMillis();
+    public List<StoreRemind> findAllRemind(String openId) {
 
         List<StoreRemind> remindList = new LinkedList<>();
         remindList = storeRemindMapper.selectByPersonId(openId);
 
-        //创建新的返回表
-        List<StoreRemindResponse> responsesList = new LinkedList<>();
-        if (remindList != null ) {
-            for (int i = 0; i < remindList.size(); i ++) {
+        //根据提醒时间升序排列
+        remindList.sort(Comparator.comparing(StoreRemind :: getRemindDate));
 
-                 StoreRemindResponse storeRemindResponse  = new StoreRemindResponse();
-                 nowStoreRemind = remindList.get(i);
-                 //时间转换
-
-                 Long day = (nowStoreRemind.getRemindDate() - nowDate) / (1000 * 60 * 60 * 24);
-
-                 storeRemindResponse.setDay(day);
-                 storeRemindResponse.setRemark(nowStoreRemind.getRemarks());
-
-                 responsesList.add(storeRemindResponse);
-            }
-        }
-        //根据天数降序排列
-        responsesList.sort(Comparator.comparing(StoreRemindResponse :: getDay));
-        return responsesList;
+        return remindList;
     }
 
     @Override
-    public Person Authorize(String openId) {
-        Person person=new Person();
-//        检验是否在数据库
-        person=personMapper.selectByOpenId(openId);
-        if (person!=null){
-            person.setOpenId(openId);
-            return person;
-        }else {
-            return null;
-        }
+    public void deleteById(Integer id) {
+        //删除store_remind表
+        storeRemindMapper.deleteByPrimaryKey(id);
+        //删除关联表person_store_remind表
+        personStoreRemindMapper.deleteByStoreRemindId(id);
     }
 
 

@@ -16,7 +16,7 @@ public interface FirstEatService {
      * @param foodId
      * @return
      */
-    public int deleteByFoodId(String openId,String foodId);
+    void deleteByFoodId(String openId,String foodId);
 
 
     /**
@@ -25,14 +25,12 @@ public interface FirstEatService {
      * @param food
      * @param page
      * @param pageSize
-     * @param foodResponse
      * @return
      */
-    public FoodResponse selectByPersonId(String openId,
+    FoodResponse selectByPersonId(String openId,
                                          Food food,
                                          Integer page,
-                                         Integer pageSize,
-                                         FoodResponse foodResponse);
+                                         Integer pageSize);
 
-    public Person Authorize(String openId);
+
 }
