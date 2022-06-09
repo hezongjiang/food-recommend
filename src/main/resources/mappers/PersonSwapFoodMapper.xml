@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tencent.food.recommend.persist.dao.PersonSwapFoodMapper">
+  <resultMap id="BaseResultMap" type="com.tencent.food.recommend.persist.model.PersonSwapFood">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="swap_id" jdbcType="VARCHAR" property="swapId" />
+    <result column="from_openid" jdbcType="VARCHAR" property="fromOpenid" />
+    <result column="to_openid" jdbcType="VARCHAR" property="toOpenid" />
+    <result column="state" jdbcType="TINYINT" property="state" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, swap_id, from_openid, to_openid, state
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from person_swap_food
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from person_swap_food
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.tencent.food.recommend.persist.model.PersonSwapFood">
+    insert into person_swap_food (id, swap_id, from_openid, 
+      to_openid, state)
+    values (#{id,jdbcType=INTEGER}, #{swapId,jdbcType=VARCHAR}, #{fromOpenid,jdbcType=VARCHAR}, 
+      #{toOpenid,jdbcType=VARCHAR}, #{state,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tencent.food.recommend.persist.model.PersonSwapFood">
+    insert into person_swap_food
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="swapId != null">
+        swap_id,
+      </if>
+      <if test="fromOpenid != null">
+        from_openid,
+      </if>
+      <if test="toOpenid != null">
+        to_openid,
+      </if>
+      <if test="state != null">
+        state,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="swapId != null">
+        #{swapId,jdbcType=VARCHAR},
+      </if>
+      <if test="fromOpenid != null">
+        #{fromOpenid,jdbcType=VARCHAR},
+      </if>
+      <if test="toOpenid != null">
+        #{toOpenid,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tencent.food.recommend.persist.model.PersonSwapFood">
+    update person_swap_food
+    <set>
+      <if test="swapId != null">
+        swap_id = #{swapId,jdbcType=VARCHAR},
+      </if>
+      <if test="fromOpenid != null">
+        from_openid = #{fromOpenid,jdbcType=VARCHAR},
+      </if>
+      <if test="toOpenid != null">
+        to_openid = #{toOpenid,jdbcType=VARCHAR},
+      </if>
+      <if test="state != null">
+        state = #{state,jdbcType=TINYINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tencent.food.recommend.persist.model.PersonSwapFood">
+    update person_swap_food
+    set swap_id = #{swapId,jdbcType=VARCHAR},
+      from_openid = #{fromOpenid,jdbcType=VARCHAR},
+      to_openid = #{toOpenid,jdbcType=VARCHAR},
+      state = #{state,jdbcType=TINYINT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

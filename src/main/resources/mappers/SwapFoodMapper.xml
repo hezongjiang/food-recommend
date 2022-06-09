@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tencent.food.recommend.persist.dao.SwapFoodMapper">
+  <resultMap id="BaseResultMap" type="com.tencent.food.recommend.persist.model.SwapFood">
+    <!--    &lt;id column="id" jdbcType="INTEGER" property="id" /&gt;-->
+    <result column="swap_id" jdbcType="VARCHAR" property="swapId" />
+    <result column="from_id" jdbcType="VARCHAR" property="fromId" />
+    <result column="to" jdbcType="VARCHAR" property="to" />
+    <result column="to_id" jdbcType="VARCHAR" property="toId" />
+    <result column="quantity_from" jdbcType="INTEGER" property="quantityFrom" />
+    <result column="weight_from" jdbcType="INTEGER" property="weightFrom" />
+    <result column="quantity_to" jdbcType="INTEGER" property="quantityTo" />
+    <result column="weight_to" jdbcType="INTEGER" property="weightTo" />
+    <result column="post_time" jdbcType="BIGINT" property="postTime" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.tencent.food.recommend.persist.model.SwapFood">
+    <result column="ext_info" jdbcType="LONGVARCHAR" property="extInfo" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithAll" type="com.tencent.food.recommend.response.SwapFoodDetailResponse">
+    <result column="ext_info" jdbcType="LONGVARCHAR" property="extInfo" />
+    <result column="name" jdbcType="VARCHAR" property="nickName" />
+    <result column="avatar_url" jdbcType="VARCHAR" property="avatarUrl" />
+    <result column="food_name" jdbcType="VARCHAR" property="from" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    swap_food.swap_id, from_id, `to`,to_id, quantity_from, weight_from, quantity_to, weight_to,
+    post_time
+  </sql>
+  <sql id="Blob_Column_List">
+    ext_info
+  </sql>
+  <sql id="All_Column_List">
+    name,avatar_url
+  </sql>
+  <sql id="Food_Column_List">
+    food_name
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from swap_food
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from swap_food
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.tencent.food.recommend.persist.model.SwapFood">
+    insert into swap_food (id, swap_id, from_id,
+      `to`, to_id, quantity_from,
+      weight_from, quantity_to, weight_to, 
+      post_time, ext_info)
+    values (#{id,jdbcType=INTEGER}, #{swapId,jdbcType=VARCHAR}, #{fromId,jdbcType=VARCHAR}, 
+      #{to,jdbcType=VARCHAR}, #{toId,jdbcType=VARCHAR}, #{quantityFrom,jdbcType=INTEGER},
+      #{weightFrom,jdbcType=INTEGER}, #{quantityTo,jdbcType=INTEGER}, #{weightTo,jdbcType=INTEGER}, 
+      #{postTime,jdbcType=BIGINT}, #{extInfo,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tencent.food.recommend.persist.model.SwapFood">
+    insert into swap_food
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="swapId != null">
+        swap_id,
+      </if>
+      <if test="fromId != null">
+        from_id,
+      </if>
+      <if test="to != null">
+        to,
+      </if>
+      <if test="toId != null">
+        to_id,
+      </if>
+      <if test="quantityFrom != null">
+        quantity_from,
+      </if>
+      <if test="weightFrom != null">
+        weight_from,
+      </if>
+      <if test="quantityTo != null">
+        quantity_to,
+      </if>
+      <if test="weightTo != null">
+        weight_to,
+      </if>
+      <if test="postTime != null">
+        post_time,
+      </if>
+      <if test="extInfo != null">
+        ext_info,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="swapId != null">
+        #{swapId,jdbcType=VARCHAR},
+      </if>
+      <if test="fromId != null">
+        #{fromId,jdbcType=VARCHAR},
+      </if>
+      <if test="to != null">
+        #{to,jdbcType=VARCHAR},
+      </if>
+      <if test="toId != null">
+        #{toId,jdbcType=INTEGER},
+      </if>
+      <if test="quantityFrom != null">
+        #{quantityFrom,jdbcType=INTEGER},
+      </if>
+      <if test="weightFrom != null">
+        #{weightFrom,jdbcType=INTEGER},
+      </if>
+      <if test="quantityTo != null">
+        #{quantityTo,jdbcType=INTEGER},
+      </if>
+      <if test="weightTo != null">
+        #{weightTo,jdbcType=INTEGER},
+      </if>
+      <if test="postTime != null">
+        #{postTime,jdbcType=BIGINT},
+      </if>
+      <if test="extInfo != null">
+        #{extInfo,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tencent.food.recommend.persist.model.SwapFood">
+    update swap_food
+    <set>
+      <if test="swapId != null">
+        swap_id = #{swapId,jdbcType=VARCHAR},
+      </if>
+      <if test="fromId != null">
+        from_id = #{fromId,jdbcType=VARCHAR},
+      </if>
+      <if test="to != null">
+        to = #{to,jdbcType=VARCHAR},
+      </if>
+      <if test="toId != null">
+        to_id = #{toId,jdbcType=INTEGER},
+      </if>
+      <if test="quantityFrom != null">
+        quantity_from = #{quantityFrom,jdbcType=INTEGER},
+      </if>
+      <if test="weightFrom != null">
+        weight_from = #{weightFrom,jdbcType=INTEGER},
+      </if>
+      <if test="quantityTo != null">
+        quantity_to = #{quantityTo,jdbcType=INTEGER},
+      </if>
+      <if test="weightTo != null">
+        weight_to = #{weightTo,jdbcType=INTEGER},
+      </if>
+      <if test="postTime != null">
+        post_time = #{postTime,jdbcType=BIGINT},
+      </if>
+      <if test="extInfo != null">
+        ext_info = #{extInfo,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.tencent.food.recommend.persist.model.SwapFood">
+    update swap_food
+    set swap_id = #{swapId,jdbcType=VARCHAR},
+      from_id = #{fromId,jdbcType=VARCHAR},
+      to = #{to,jdbcType=VARCHAR},
+      to_id = #{toId,jdbcType=INTEGER},
+      quantity_from = #{quantityFrom,jdbcType=INTEGER},
+      weight_from = #{weightFrom,jdbcType=INTEGER},
+      quantity_to = #{quantityTo,jdbcType=INTEGER},
+      weight_to = #{weightTo,jdbcType=INTEGER},
+      post_time = #{postTime,jdbcType=BIGINT},
+      ext_info = #{extInfo,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tencent.food.recommend.persist.model.SwapFood">
+    update swap_food
+    set swap_id = #{swapId,jdbcType=VARCHAR},
+      from_id = #{fromId,jdbcType=VARCHAR},
+      to = #{to,jdbcType=VARCHAR},
+      to_id = #{toId,jdbcType=INTEGER},
+      quantity_from = #{quantityFrom,jdbcType=INTEGER},
+      weight_from = #{weightFrom,jdbcType=INTEGER},
+      quantity_to = #{quantityTo,jdbcType=INTEGER},
+      weight_to = #{weightTo,jdbcType=INTEGER},
+      post_time = #{postTime,jdbcType=BIGINT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+<!--  &lt;select id="selectAll" resultMap="ResultMapWithAll"&gt;-->
+<!--    select-->
+<!--    &lt;include refid="All_Column_List" /&gt;-->
+<!--    ,-->
+<!--    &lt;include refid="Base_Column_List" /&gt;-->
+<!--    ,-->
+<!--    &lt;include refid="Blob_Column_List" /&gt;-->
+<!--    FROM person_swap_food,swap_food,person,food-->
+<!--    WHERE swap_food.swap_id=person_swap_food.swap_id AND-->
+<!--    person_swap_food.from_openid=person.open_id -->
+<!--    ORDER BY post_time DESC-->
+<!--  &lt;/select&gt;-->
+  <select id="selectAll" resultMap="ResultMapWithAll">
+    select
+    <include refid="All_Column_List" />
+    ,
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    ,
+    <include refid="Food_Column_List"/>
+    FROM person_swap_food,swap_food,person,food
+    WHERE swap_food.swap_id=person_swap_food.swap_id AND
+    person_swap_food.from_openid=person.open_id and
+          swap_food.from_id=food.food_id
+    ORDER BY post_time DESC
+  </select>
+  <delete id="deleteById" parameterType="java.lang.String">
+    delete from swap_food
+    where swap_id=#{swapId,jdbcType=VARCHAR}
+  </delete>
+</mapper>

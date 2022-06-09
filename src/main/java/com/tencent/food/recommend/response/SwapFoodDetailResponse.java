@@ -14,4 +14,20 @@ public class SwapFoodDetailResponse {
     private Long postTime;
 
     private String extInfo;
+
+    private String fromId;
+
+    private String from;
+
+    private Integer quantityFrom;
+
+    private Integer weightFrom;
+
+    private String toId;
+
+    private String to;
+
+    private Integer quantityTo;
+
+    private Integer weightTo;
 }

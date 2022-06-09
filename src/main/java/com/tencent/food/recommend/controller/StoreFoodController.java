@@ -30,7 +30,7 @@ public class StoreFoodController {
      * @param quantity
      * @param weight
      * @param createDate
-     * @param remind_Date
+     * @param remindDate
      * @return
      */
     @PostMapping("/api/storeFood/create")
@@ -40,7 +40,8 @@ public class StoreFoodController {
             @RequestParam(value = "quantity", required = false) Integer quantity,
             @RequestParam(value = "weight", required = false) Integer weight,
             @RequestParam(value = "createDate", required = true) Long createDate,
-            @RequestParam(value = "remindDate", required = false) String remind_Date
+//            @RequestParam(value = "remindDate", required = true) String remind_Date
+            @RequestParam(value = "remindDate", required = true) Long remindDate
     ){
 //        先验证身份,获取User
         Person person= storeFoodService.Authorize(openId);
@@ -50,10 +51,12 @@ public class StoreFoodController {
             food.setFoodId(IdGenerate.generate("FOOD_ID"));
             food.setFoodName(foodName);
             food.setCreateDate(createDate);
-            if (remind_Date!=null){
-                Long remindDate=Long.parseLong(remind_Date);
-                food.setRemindDate(remindDate);
-            }
+//            提醒日期为必选项 所以不必判断
+//            if (remind_Date!=null){
+//                Long remindDate=Long.parseLong(remind_Date);
+//                food.setRemindDate(remindDate);
+//            }
+            food.setRemindDate(remindDate);
             food.setQuantity(quantity);
             food.setWeight(weight);
             int status = storeFoodService.InsertFood(person.getOpenId(), food);
