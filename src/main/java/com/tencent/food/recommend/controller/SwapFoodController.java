@@ -100,13 +100,19 @@ public class SwapFoodController {
     @GetMapping("detail")
     public ResultData<SwapFoodDetailResponse> detail(
             @RequestHeader(name = "openid") String openId,
-            @RequestParam(value = "swap_id") String swapId) {
+            @RequestParam(value = "swapId") String swapId) {
         Person person= swapFoodService.Authorize(openId);
         if (person!=null) {
-
+            SwapFoodDetailResponse swapFoodDetailResponse=new SwapFoodDetailResponse();
+            swapFoodDetailResponse.setSwapId(swapId);
+            swapFoodDetailResponse=swapFoodService.detail(swapFoodDetailResponse);
+            if (swapFoodDetailResponse != null) {
+                return ResultData.success(swapFoodDetailResponse);
+            } else {
+                return ResultData.fail(ReturnCode.RC999.getCode(), "非法参数，操作失败");
+            }
         }else {
             return ResultData.fail(ReturnCode.RC401.getCode(), "请登录重试");
         }
-        return ResultData.success(null);
     }
 }

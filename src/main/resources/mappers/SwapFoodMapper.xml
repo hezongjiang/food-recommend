@@ -224,4 +224,20 @@
     delete from swap_food
     where swap_id=#{swapId,jdbcType=VARCHAR}
   </delete>
+  <select id="selectOne" parameterType="java.lang.String" resultMap="ResultMapWithAll">
+    select
+    <include refid="All_Column_List" />
+    ,
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    ,
+    <include refid="Food_Column_List"/>
+    FROM person_swap_food,swap_food,person,food
+
+    where swap_food.swap_id=#{swapId,jdbcType=VARCHAR} and
+    person_swap_food.swap_id=#{swapId,jdbcType=VARCHAR} and
+    person_swap_food.from_openid= person.open_id and
+    swap_food.from_id=food.food_id
+  </select>
 </mapper>

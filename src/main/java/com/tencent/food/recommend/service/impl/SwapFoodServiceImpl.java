@@ -70,6 +70,21 @@ public class SwapFoodServiceImpl implements SwapFoodService {
         return true;
     }
 
+    /**
+     * 根据swapid查找交易信息
+     * @param record
+     * @return
+     */
+    @Override
+    public SwapFoodDetailResponse detail(SwapFoodDetailResponse record) {
+        try {
+            record=swapFoodMapper.selectOne(record.getSwapId());
+        }catch (Exception e){
+            return null;
+        }
+        return record;
+    }
+
     @Override
     public Person Authorize(String openId) {
         Person person=new Person();

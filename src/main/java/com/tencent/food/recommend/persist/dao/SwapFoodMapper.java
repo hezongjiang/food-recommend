@@ -20,6 +20,8 @@ public interface SwapFoodMapper {
 
     List<SwapFoodDetailResponse> selectAll();
 
+    SwapFoodDetailResponse selectOne(String swapId);
+
     int updateByPrimaryKeySelective(SwapFood record);
 
     int updateByPrimaryKeyWithBLOBs(SwapFood record);
