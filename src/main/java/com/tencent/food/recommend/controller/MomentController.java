@@ -24,7 +24,7 @@ public class MomentController {
      * @param pictures 图片列表，json格式，例如：["xxx", "yyy"]
      * @return 创建成功与否
      */
-    @PostMapping("create")
+    @PostMapping("/create")
     public ResultData<Boolean> create(@RequestHeader(name = "openid") String openId,
                                       @RequestParam(value = "title") String title,
                                       @RequestParam(value = "content") String content,
@@ -38,7 +38,7 @@ public class MomentController {
     /**
      * 列表
      */
-    @GetMapping("list")
+    @GetMapping("/list")
     public ResultData<List<MomentListResponse>> list(@RequestParam(value = "page") Integer page,
                                                      @RequestParam(value = "pageSize") Integer pageSize) {
         return ResultData.success(null);
@@ -46,9 +46,31 @@ public class MomentController {
 
     /**
      * 详情
+     * 根据动态momentId来查询某个动态的详细
      */
-    @GetMapping("detail")
+    @GetMapping("/detail")
     public ResultData<MomentDetailResponse> detail(@RequestParam(value = "momentId") String momentId) {
+        return ResultData.success(null);
+    }
+
+    /**
+     * @Author:NathanYu
+     * @Description:
+     * @Date: 2022/6/9 13:49
+     * @param openId 用户唯一标识
+     * @param title 标题 （必须）
+     * @param content 文本
+     * @param type 类型 1-囤菜攻略、2-食材处理、3-美食分享 （必须）
+     * @param location 位置
+     * @return ResultData<Boolean>
+     */
+    @PostMapping("/add")
+    public ResultData<Boolean> add(@RequestHeader(name = "openid") String openId,
+                                   @RequestParam(value = "title") String title,
+                                   @RequestParam(value = "content") String content,
+                                   @RequestParam(value = "type") Integer type,
+                                   @RequestParam(value = "location", required = false) String location){
+
         return ResultData.success(null);
     }
 }
