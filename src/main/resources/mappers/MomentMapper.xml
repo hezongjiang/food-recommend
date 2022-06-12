@@ -79,4 +79,8 @@
         </trim>
     </insert>
 
+    <select id="selectAll" resultMap="BaseResultMap">
+        SELECT * FROM moment
+    </select>
+
 </mapper>

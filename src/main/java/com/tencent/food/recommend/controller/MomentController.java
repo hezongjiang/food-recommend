@@ -53,9 +53,10 @@ public class MomentController {
      * 列表
      */
     @GetMapping("/list")
-    public ResultData<List<MomentListResponse>> list(@RequestParam(value = "page") Integer page,
-                                                     @RequestParam(value = "pageSize") Integer pageSize) {
-        return ResultData.success(null);
+    public ResultData list(@RequestParam(value = "page") Integer page,
+                           @RequestParam(value = "pageSize") Integer pageSize) {
+        MomentListResponse momentListResponse = momentService.selectAll(page, pageSize);
+        return ResultData.success(momentListResponse);
     }
 
     /**
