@@ -83,4 +83,9 @@
         SELECT * FROM moment
     </select>
 
+    <select id="selectByMomentId" parameterType="java.lang.String" resultMap="BaseResultMap">
+        SELECT * FROM moment
+        where moment_id = #{momentId, jdbcType=VARCHAR}
+    </select>
+
 </mapper>

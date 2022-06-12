@@ -68,4 +68,30 @@ public class MomentServiceImpl implements MomentService {
         }
         return momentListResponse;
     }
+
+    @Override
+    public MomentDetailResponse selectByMomentId(String momentId) {
+        Moment temp = momentMapper.selectByMomentId(momentId);
+
+        MomentDetailResponse tempResponse = new MomentDetailResponse();
+        tempResponse.setMomentId(temp.getMomentId());
+        tempResponse.setTitle(temp.getTitle());
+        tempResponse.setContent(temp.getContent());
+        tempResponse.setType(temp.getType());
+        tempResponse.setPictures(temp.getPictures());
+        tempResponse.setPostTime(temp.getPostTime());
+        if (temp.getType() != null) {
+            if (temp.getType() == 1){
+                tempResponse.setNickName("囤菜攻略");
+            } else if (temp.getType() == 2) {
+                tempResponse.setNickName("食材处理");
+            } else if (temp.getType() == 3) {
+                tempResponse.setNickName("美食分享");
+            } else {
+                tempResponse.setNickName("未设置类型");
+            }
+        }
+
+        return tempResponse;
+    }
 }

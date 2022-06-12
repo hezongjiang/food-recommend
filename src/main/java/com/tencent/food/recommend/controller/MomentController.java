@@ -65,7 +65,10 @@ public class MomentController {
      */
     @GetMapping("/detail")
     public ResultData<MomentDetailResponse> detail(@RequestParam(value = "momentId") String momentId) {
-        return ResultData.success(null);
+
+        MomentDetailResponse result = momentService.selectByMomentId(momentId);
+
+        return ResultData.success(result);
     }
 
     /**

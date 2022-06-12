@@ -1,6 +1,7 @@
 package com.tencent.food.recommend.persist.dao;
 
 import com.tencent.food.recommend.persist.model.Moment;
+import com.tencent.food.recommend.response.MomentDetailResponse;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;
@@ -11,4 +12,6 @@ public interface MomentMapper {
     int insertSelective(Moment moment);
 
     List<Moment> selectAll ();
+
+    Moment selectByMomentId (String momentId);
 }
