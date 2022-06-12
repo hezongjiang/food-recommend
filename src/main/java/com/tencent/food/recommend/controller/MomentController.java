@@ -1,8 +1,15 @@
 package com.tencent.food.recommend.controller;
 
 import com.tencent.food.recommend.common.ResultData;
+import com.tencent.food.recommend.common.enums.ReturnCode;
+import com.tencent.food.recommend.common.utils.IdGenerate;
+import com.tencent.food.recommend.persist.model.Moment;
+import com.tencent.food.recommend.persist.model.Person;
 import com.tencent.food.recommend.response.MomentDetailResponse;
 import com.tencent.food.recommend.response.MomentListResponse;
+import com.tencent.food.recommend.service.MomentService;
+import com.tencent.food.recommend.service.PersonService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,6 +20,13 @@ import java.util.List;
 @RestController
 @RequestMapping("/moment")
 public class MomentController {
+
+
+    @Autowired
+    PersonService personService;
+
+    @Autowired
+    MomentService momentService;
 
     /**
      * 发布圈子
@@ -71,6 +85,31 @@ public class MomentController {
                                    @RequestParam(value = "type") Integer type,
                                    @RequestParam(value = "location", required = false) String location){
 
-        return ResultData.success(null);
+        Person person = personService.findPersonByOpenId(openId);
+
+        if (person == null) {
+            //用户不存在
+            return ResultData.error(ReturnCode.USER_NOT_EXISTS);
+        }
+        if(title == null) {
+            return ResultData.error(ReturnCode.TITLE_NOT_NULL);
+        }
+        if(type == null) {
+            return ResultData.error(ReturnCode.TYPE_NOT_NULL);
+        }
+
+        Moment moment = new Moment();
+        moment.setMomentId(IdGenerate.generate("MOMENT_ID"));
+        moment.setTitle(title);
+        moment.setContent(content);
+        moment.setOpenId(openId);
+        moment.setType(type);
+        moment.setLocation(location);
+        moment.setPostTime(System.currentTimeMillis());
+
+        momentService.createMoment(moment);
+
+
+        return ResultData.ok("添加成功");
     }
 }

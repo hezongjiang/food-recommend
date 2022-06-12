@@ -26,7 +26,9 @@ public enum ReturnCode {
 
 
     USER_NOT_EXISTS(3001, "用户不存在"),
-    REMIND_DATE_EMPTY(3002, "提醒时间不能为空");
+    REMIND_DATE_EMPTY(3002, "提醒时间不能为空"),
+    TITLE_NOT_NULL(3003, "标题不能为空"),
+    TYPE_NOT_NULL(3004, "类型不能为空");
 
 
     /**自定义状态码**/

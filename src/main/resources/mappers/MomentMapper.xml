@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tencent.food.recommend.persist.dao.MomentMapper">
+    <resultMap id="BaseResultMap" type="com.tencent.food.recommend.persist.model.Moment">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="moment_id" jdbcType="VARCHAR" property="momentId" />
+        <result column="title" jdbcType="VARCHAR" property="title" />
+        <result column="content" jdbcType="VARCHAR" property="content" />
+        <result column="pictures" jdbcType="VARCHAR" property="pictures" />
+        <result column="open_id" jdbcType="VARCHAR" property="openId" />
+        <result column="post_time" jdbcType="BIGINT" property="postTime" />
+        <result column="type" jdbcType="INTEGER" property="type" />
+        <result column="location" jdbcType="VARCHAR" property="location" />
+    </resultMap>
+    <sql id="Base_Column_List">
+        id, moment_id, title, content, pictures, open_id, post_time, type, location
+    </sql>
+
+
+    <insert id="insertSelective" parameterType="com.tencent.food.recommend.persist.model.Moment">
+        insert into moment
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="momentId != null">
+                moment_id,
+            </if>
+            <if test="title != null">
+                title,
+            </if>
+            <if test="content != null">
+                content,
+            </if>
+            <if test="pictures != null">
+                pictures,
+            </if>
+            <if test="openId != null">
+                open_id,
+            </if>
+            <if test="postTime != null">
+                post_time,
+            </if>
+            <if test="type != null">
+                type,
+            </if>
+            <if test="location != null">
+                location,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="momentId != null">
+                #{momentId,jdbcType=VARCHAR},
+            </if>
+            <if test="title != null">
+                #{title,jdbcType=VARCHAR},
+            </if>
+            <if test="content != null">
+                #{content,jdbcType=VARCHAR},
+            </if>
+            <if test="pictures != null">
+                #{pictures,jdbcType=VARCHAR},
+            </if>
+            <if test="openId != null">
+                #{openId,jdbcType=VARCHAR},
+            </if>
+            <if test="postTime != null">
+                #{postTime,jdbcType=BIGINT},
+            </if>
+            <if test="type != null">
+                #{type,jdbcType=INTEGER},
+            </if>
+            <if test="location != null">
+                #{location,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+</mapper>
