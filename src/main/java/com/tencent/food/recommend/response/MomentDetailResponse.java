@@ -18,4 +18,6 @@ public class MomentDetailResponse {
     private Long postTime;
 
     private String pictures;
+
+    private String location;
 }

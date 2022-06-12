@@ -114,6 +114,6 @@ public class MomentController {
         momentService.createMoment(moment);
 
 
-        return ResultData.ok("添加成功");
+        return ResultData.success(null);
     }
 }

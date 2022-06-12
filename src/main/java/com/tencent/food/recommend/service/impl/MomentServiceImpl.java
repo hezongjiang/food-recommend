@@ -47,6 +47,7 @@ public class MomentServiceImpl implements MomentService {
             tempResponse.setType(temp.getType());
             tempResponse.setPictures(temp.getPictures());
             tempResponse.setPostTime(temp.getPostTime());
+            tempResponse.setLocation(temp.getLocation());
             if (temp.getType() != null) {
                 if (temp.getType() == 1){
                     tempResponse.setNickName("囤菜攻略");
@@ -80,6 +81,7 @@ public class MomentServiceImpl implements MomentService {
         tempResponse.setType(temp.getType());
         tempResponse.setPictures(temp.getPictures());
         tempResponse.setPostTime(temp.getPostTime());
+        tempResponse.setLocation(temp.getLocation());
         if (temp.getType() != null) {
             if (temp.getType() == 1){
                 tempResponse.setNickName("囤菜攻略");
