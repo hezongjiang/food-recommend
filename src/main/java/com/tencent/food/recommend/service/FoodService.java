@@ -1,6 +1,5 @@
 package com.tencent.food.recommend.service;
 
-
 import com.tencent.food.recommend.persist.model.Food;
 
 import java.util.List;

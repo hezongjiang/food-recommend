@@ -25,8 +25,8 @@ public class FirstEatController {
 
     @DeleteMapping("/delete")
     public ResultData deleteFood(
-            @RequestHeader(name = WXConstant.OPEN_ID, required = true) String openId,
-            @RequestParam(value = "foodId",required = true) String foodId
+            @RequestHeader(name = WXConstant.OPEN_ID) String openId,
+            @RequestParam(value = "foodId") String foodId
     ){
 //        先验证身份,获取person,必须有id;food必须有id
         Person person= personService.findPersonByOpenId(openId);
@@ -40,7 +40,7 @@ public class FirstEatController {
 
     @GetMapping("/allFood")
     public ResultData checkFood(
-            @RequestHeader(name = WXConstant.OPEN_ID, required = true) String openId,
+            @RequestHeader(name = WXConstant.OPEN_ID) String openId,
             @RequestParam(value = "foodId", required = false) String foodId,
             @RequestParam(value = "foodName", required = false) String foodName,
             @RequestParam(value = "createDate", required = false) String requestCreateDate,
@@ -56,7 +56,6 @@ public class FirstEatController {
         if (person == null) {
             return ResultData.error(ReturnCode.USER_NOT_EXISTS);
         }
-        FoodResponse foodResponse = new FoodResponse();
         if (foodId != null) {
             food.setFoodId(foodId);
         }
@@ -71,12 +70,11 @@ public class FirstEatController {
             Long remindDate = Long.parseLong(requestRemindDate);
             food.setRemindDate(remindDate);
         }
-        foodResponse = firstEatService.selectByPersonId(openId,food,page,pageSize);
+        FoodResponse foodResponse = firstEatService.selectByPersonId(openId,food,page,pageSize);
         if (foodResponse != null) {
             return ResultData.success(foodResponse);
         } else {
             return ResultData.fail(ReturnCode.RC999.getCode(),ReturnCode.RC999.getMessage());
         }
-
     }
 }

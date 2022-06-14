@@ -1,7 +1,6 @@
 package com.tencent.food.recommend.service;
 
 import com.tencent.food.recommend.persist.model.Food;
-import com.tencent.food.recommend.persist.model.Person;
 import com.tencent.food.recommend.response.FoodResponse;
 
 /**

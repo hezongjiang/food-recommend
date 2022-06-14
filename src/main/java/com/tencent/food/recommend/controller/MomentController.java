@@ -12,8 +12,6 @@ import com.tencent.food.recommend.service.PersonService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 /**
  * 圈子
  */
@@ -30,10 +28,11 @@ public class MomentController {
 
     /**
      * 发布圈子
-     * @param openId openid
-     * @param title 标题
-     * @param content 文本内容
-     * @param type 分区类型：1-囤菜攻略、2-食材处理、3-美食分享
+     *
+     * @param openId   openid
+     * @param title    标题
+     * @param content  文本内容
+     * @param type     分区类型：1-囤菜攻略、2-食材处理、3-美食分享
      * @param location 地点
      * @param pictures 图片列表，json格式，例如：["xxx", "yyy"]
      * @return 创建成功与否
@@ -53,8 +52,8 @@ public class MomentController {
      * 列表
      */
     @GetMapping("/list")
-    public ResultData list(@RequestParam(value = "page") Integer page,
-                           @RequestParam(value = "pageSize") Integer pageSize) {
+    public ResultData<MomentListResponse> list(@RequestParam(value = "page") Integer page,
+                                               @RequestParam(value = "pageSize") Integer pageSize) {
         MomentListResponse momentListResponse = momentService.selectAll(page, pageSize);
         return ResultData.success(momentListResponse);
     }
@@ -72,22 +71,21 @@ public class MomentController {
     }
 
     /**
+     * @param openId   用户唯一标识
+     * @param title    标题 （必须）
+     * @param content  文本
+     * @param type     类型 1-囤菜攻略、2-食材处理、3-美食分享 （必须）
+     * @param location 位置
      * @Author:NathanYu
      * @Description:
      * @Date: 2022/6/9 13:49
-     * @param openId 用户唯一标识
-     * @param title 标题 （必须）
-     * @param content 文本
-     * @param type 类型 1-囤菜攻略、2-食材处理、3-美食分享 （必须）
-     * @param location 位置
-     * @return ResultData<Boolean>
      */
     @PostMapping("/add")
-    public ResultData<Boolean> add(@RequestHeader(name = "openid") String openId,
-                                   @RequestParam(value = "title") String title,
-                                   @RequestParam(value = "content") String content,
-                                   @RequestParam(value = "type") Integer type,
-                                   @RequestParam(value = "location", required = false) String location){
+    public ResultData add(@RequestHeader(name = "openid") String openId,
+                          @RequestParam(value = "title") String title,
+                          @RequestParam(value = "content") String content,
+                          @RequestParam(value = "type") Integer type,
+                          @RequestParam(value = "location", required = false) String location) {
 
         Person person = personService.findPersonByOpenId(openId);
 
@@ -95,10 +93,10 @@ public class MomentController {
             //用户不存在
             return ResultData.error(ReturnCode.USER_NOT_EXISTS);
         }
-        if(title == null) {
+        if (title == null) {
             return ResultData.error(ReturnCode.TITLE_NOT_NULL);
         }
-        if(type == null) {
+        if (type == null) {
             return ResultData.error(ReturnCode.TYPE_NOT_NULL);
         }
 
@@ -113,7 +111,6 @@ public class MomentController {
 
         momentService.createMoment(moment);
 
-
-        return ResultData.success(null);
+        return ResultData.success(true);
     }
 }
