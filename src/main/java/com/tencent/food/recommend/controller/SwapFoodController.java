@@ -57,7 +57,7 @@ public class SwapFoodController {
      * @return
      */
     @PostMapping("create")
-    public ResultData<Boolean> create(@RequestHeader(name = "openid") String openId,
+    public ResultData<String> create(@RequestHeader(name = "openid") String openId,
                                       @RequestParam(value = "fromId") String fromId,
                                       @RequestParam(value = "to") String to,
                                       @RequestParam(value = "quantity_from", required = false) Integer quantityFrom,
@@ -83,9 +83,9 @@ public class SwapFoodController {
             swapFood.setQuantityTo(quantityTo);
             swapFood.setWeightTo(weightTo);
 
-            Boolean status = swapFoodService.create(swapFood, openId);
+            boolean status = swapFoodService.create(swapFood, openId);
             if (status) {
-                return ResultData.success(true);
+                return ResultData.success(swapFood.getSwapId());
             }
         }
         return ResultData.fail(ReturnCode.RC401.getCode(), "请登录重试");

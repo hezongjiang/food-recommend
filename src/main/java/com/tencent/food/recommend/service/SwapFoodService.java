@@ -14,7 +14,7 @@ public interface SwapFoodService {
 
     public SwapFoodListResponse selectAll(SwapFoodListResponse swapFoodListResponse);
 
-    public Boolean create(SwapFood swapFood,String openid);
+    public boolean create(SwapFood swapFood,String openid);
 
     public SwapFoodDetailResponse detail(SwapFoodDetailResponse record);
 

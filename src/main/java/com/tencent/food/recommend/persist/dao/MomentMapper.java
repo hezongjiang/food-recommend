@@ -1,7 +1,6 @@
 package com.tencent.food.recommend.persist.dao;
 
 import com.tencent.food.recommend.persist.model.Moment;
-import com.tencent.food.recommend.response.MomentDetailResponse;
 import org.apache.ibatis.annotations.Mapper;
 
 import java.util.List;

@@ -113,6 +113,6 @@ public class MomentController {
         moment.setPictures(pictures);
         momentService.createMoment(moment);
 
-        return ResultData.success(true);
+        return ResultData.success(moment.getMomentId());
     }
 }

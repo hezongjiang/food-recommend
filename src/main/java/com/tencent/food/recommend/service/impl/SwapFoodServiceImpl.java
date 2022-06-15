@@ -49,7 +49,7 @@ public class SwapFoodServiceImpl implements SwapFoodService {
     }
 
     @Override
-    public Boolean create(SwapFood swapFood, String openid) {
+    public boolean create(SwapFood swapFood, String openid) {
         try {
             PersonSwapFood personSwapFood=new PersonSwapFood();
             personSwapFood.setFromOpenid(openid);
