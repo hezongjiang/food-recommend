@@ -76,6 +76,7 @@ public class MomentController {
      * @param content  文本
      * @param type     类型 1-囤菜攻略、2-食材处理、3-美食分享 （必须）
      * @param location 位置
+     * @param pictures 图片列表，例如：xxx.png,yyy.jpg
      * @Author:NathanYu
      * @Description:
      * @Date: 2022/6/9 13:49
@@ -85,7 +86,8 @@ public class MomentController {
                           @RequestParam(value = "title") String title,
                           @RequestParam(value = "content") String content,
                           @RequestParam(value = "type") Integer type,
-                          @RequestParam(value = "location", required = false) String location) {
+                          @RequestParam(value = "location", required = false) String location,
+                          @RequestParam(value = "pictures", required = false) String pictures) {
 
         Person person = personService.findPersonByOpenId(openId);
 
@@ -108,7 +110,7 @@ public class MomentController {
         moment.setType(type);
         moment.setLocation(location);
         moment.setPostTime(System.currentTimeMillis());
-
+        moment.setPictures(pictures);
         momentService.createMoment(moment);
 
         return ResultData.success(true);
